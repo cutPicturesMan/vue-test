@@ -1,0 +1,21 @@
+{
+  "name": "vue-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node scripts/build.js",
+    "build:ssr": "npm run build -- ssr"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cutPicturesMan/vue-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cutPicturesMan/vue-test/issues"
+  },
+  "homepage": "https://github.com/cutPicturesMan/vue-test#readme"
+}
