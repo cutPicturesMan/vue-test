@@ -1,13 +1,30 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <router-view/>
+    <!--<router-view/>-->
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+//  props: ['title', 'isPublished'],
+//  props: {
+//    title: Object,
+//    isPublished: Boolean
+//  },
+  props: {
+    title: {
+      type: String,
+      required: true,
+      default: 100
+    },
+    isPublished: {
+    	type: Boolean,
+      required: true,
+      default: false
+    }
+  },
 }
 </script>
 
