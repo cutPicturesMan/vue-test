@@ -13,49 +13,46 @@ Vue.config.productionTip = false
 let vm = new Vue({
   el: '#app',
   // router,
+  data: {
+    cartNum1: 5,
+    cartNum2: 3,
+    info: {
+      user: 'admin',
+      address: {
+        province: 'xx省',
+        city: 'xx市',
+        county: 'xx县'
+      }
+    }
+  },
   components: { App },
   template: '<App/>'
 })
 
 // 函数
-// vm.$watch(
-//   function () {
-//     debugger
-//     console.log(this);
-//     return this.a.b;
-//
-//     return this.a + this.b
-//   },
-//   function (newVal, oldVal) {
-//     // 做点什么
-//   }
-// )
+vm.$watch(
+  function () {
+    debugger
 
-function fn(){
-  try{
-    a
-    console.log('-1');
-    return 1;
-  } catch (e){
-    console.log(e);
-    throw 111
-    console.log('-2');
-
-    return 2;
-  } finally {
-    console.log('-3');
+    return this.cartNum1 + this.cartNum2
+  }, function (newVal, oldVal) {
+    // 做点什么
+  }, {
+    deep: true
   }
+)
 
-  return 4;
-}
-// console.log(fn());
-//
-//
-try{
-  console.log(fn());
-} catch (e){
-  console.log(123);
-  console.log(e);
-}
+// 函数
+vm.$watch(
+  function () {
+    debugger
+
+    return this.info
+  }, function (newVal, oldVal) {
+    // 做点什么
+  }, {
+    deep: true
+  }
+)
 
 
