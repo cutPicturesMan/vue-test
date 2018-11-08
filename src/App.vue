@@ -25,6 +25,17 @@ export default {
       default: false
     }
   },
+  data: {
+  	obj: {
+  		name: 'zz'
+    }
+  },
+//  watch: {
+//  	'obj.name': function(){
+//  		return
+//  		console.log(123);
+//    }
+//  }
 }
 </script>
 
