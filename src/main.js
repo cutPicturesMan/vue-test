@@ -9,6 +9,10 @@ import { b as c } from './test'
 console.log(c);
 Vue.config.productionTip = false
 
+let obj = {}
+
+Object.defineProperty(obj, name, )
+
 /* eslint-disable no-new */
 let vm = new Vue({
   el: '#app',
