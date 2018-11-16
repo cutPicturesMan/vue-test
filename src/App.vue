@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+    {{titleName}}
     <!--<router-view/>-->
   </div>
 </template>
@@ -8,21 +9,23 @@
 <script>
 export default {
   name: 'App',
-//  props: ['title', 'isPublished'],
+//  props: ['title', 'user'],
 //  props: {
-//    title: Object,
-//    isPublished: Boolean
+//    title: String,
+//    user: Boolean
 //  },
   props: {
-    title: {
-      type: String,
-      required: true,
-      default: 100
+    titleName: {
+      type: [Boolean, String, Object],
+      default(){
+      	debugger
+      	return {};
+      }
     },
-    isPublished: {
-    	type: Boolean,
+    user: {
+    	type: String,
       required: true,
-      default: false
+      default: ''
     }
   },
   data: {
@@ -30,12 +33,15 @@ export default {
   		name: 'zz'
     }
   },
-//  watch: {
+  watch: {
 //  	'obj.name': function(){
 //  		return
 //  		console.log(123);
-//    }
-//  }
+//    },
+    'titleName': function(){
+  		console.error(123);
+    },
+  }
 }
 </script>
 

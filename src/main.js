@@ -4,14 +4,8 @@ import Vue from 'vue'
 import $ from 'jquery'
 import App from './App'
 // import router from './router'
-import { b as c } from './test'
 
-console.log(c);
 Vue.config.productionTip = false
-
-let obj = {}
-
-Object.defineProperty(obj, name, )
 
 /* eslint-disable no-new */
 let vm = new Vue({
@@ -20,6 +14,7 @@ let vm = new Vue({
   data: {
     cartNum1: 5,
     cartNum2: 3,
+    title: '测试标题',
     info: {
       user: 'admin',
       address: {
@@ -30,7 +25,7 @@ let vm = new Vue({
     }
   },
   components: { App },
-  template: '<App/>'
+  template: '<App title-name1="title-name"/>'
 })
 
 // 函数
