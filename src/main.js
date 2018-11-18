@@ -14,6 +14,7 @@ let vm = new Vue({
   data: {
     cartNum1: 5,
     cartNum2: 3,
+    title: '测试标题',
     info: {
       user: 'zz',
       address: {
@@ -24,7 +25,7 @@ let vm = new Vue({
     }
   },
   components: { App },
-  template: '<App/>'
+  template: '<App title-name1="title-name"/>'
 })
 
 // 函数
