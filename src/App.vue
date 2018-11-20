@@ -28,9 +28,12 @@ export default {
       default: ''
     }
   },
-  data: {
-  	obj: {
-  		name: 'zz'
+  data(){
+  	console.log(this.titleName);
+  	return {
+      obj: {
+        name: 'zz'
+      }
     }
   },
   watch: {
@@ -38,9 +41,9 @@ export default {
 //  		return
 //  		console.log(123);
 //    },
-    'titleName': function(){
-  		console.error(123);
-    },
+//    'titleName': function(){
+//  		console.error(123);
+//    },
   }
 }
 </script>

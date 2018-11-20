@@ -25,33 +25,37 @@ let vm = new Vue({
     }
   },
   components: { App },
-  template: '<App title-name1="title-name"/>'
+  template: '<App title-name1="title-name"/>',
+  mounted(){
+    setTimeout(()=>{
+      this.cartNum1 = 0;
+    }, 1000)
+  }
 })
 
 // 函数
 vm.$watch(
-  function () {
-    debugger
-
+  function watch () {
     return this.cartNum1 + this.cartNum2
-  }, function (newVal, oldVal) {
+  }, function handleWatch (newVal, oldVal) {
     // 做点什么
+    console.log(`${newVal}, ${oldVal}`);
   }, {
     deep: true
   }
 )
 
-// 函数
-vm.$watch(
-  function () {
-    debugger
-
-    return this.info
-  }, function (newVal, oldVal) {
-    // 做点什么
-  }, {
-    deep: true
-  }
-)
+// // 函数
+// vm.$watch(
+//   function () {
+//     debugger
+//
+//     return this.info
+//   }, function (newVal, oldVal) {
+//     // 做点什么
+//   }, {
+//     deep: true
+//   }
+// )
 
 
