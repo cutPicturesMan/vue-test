@@ -50,13 +50,15 @@ vm.$watch(
   function watch () {
     return this.cartNum1 + this.cartNum2
   }, function handleWatch (newVal, oldVal) {
-    // 做点什么
-    this._watchers[1].deps[0].subs = [];
-    console.log(this._watchers[1].deps);
-    console.log(this);
-    console.log(`${newVal}, ${oldVal}`);
+    if(newVal){
+      // 做点什么
+      console.log(this._watchers[1].deps);
+      console.log(this);
+      console.log(`${newVal}, ${oldVal}`);
+    }
   }, {
-    deep: true
+    deep: true,
+    immediate: true
   }
 )
 
@@ -65,11 +67,13 @@ vm.$watch(
   function watch () {
     return this.cartNum1
   }, function handleWatch (newVal, oldVal) {
-    // 做点什么
-    console.log('不会执行');
+    if(newVal) {
+      this._watchers[2].deps[0].subs = [];
+      console.log('不会执行');
+    }
   }, {
     deep: true,
-
+    immediate: true
   }
 )
 
@@ -78,10 +82,12 @@ vm.$watch(
   function watch () {
     return this.cartNum3
   }, function handleWatch (newVal, oldVal) {
-    // 做点什么
-    console.log('不会执行2');
+    if(newVal) {
+      console.log('不会执行2');
+    }
   }, {
-    deep: true
+    deep: true,
+    immediate: true
   }
 )
 
