@@ -18,7 +18,6 @@ export default {
     titleName: {
       type: [Boolean, String, Object],
       default(){
-      	debugger
       	return {};
       }
     },
@@ -35,6 +34,7 @@ export default {
         name: 'zz'
       }
     }
+//    return ['a']
   },
   watch: {
 //  	'obj.name': function(){
@@ -44,6 +44,9 @@ export default {
 //    'titleName': function(){
 //  		console.error(123);
 //    },
+  },
+  mounted(){
+  	console.log(this._data);
   }
 }
 </script>

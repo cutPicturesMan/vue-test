@@ -4,6 +4,11 @@ import Vue from 'vue'
 import $ from 'jquery'
 import App from './App'
 // import router from './router'
+import a from './a'
+import Dep from './test'
+console.log(Dep.target);
+(new Dep()).log()
+console.log(Dep.target);
 
 Vue.config.productionTip = false
 
@@ -14,6 +19,7 @@ let vm = new Vue({
   data: {
     cartNum1: 5,
     cartNum2: 3,
+    cartNum3: 4,
     title: '测试标题',
     info: {
       user: 'zz',
@@ -24,11 +30,17 @@ let vm = new Vue({
       }
     }
   },
+  watch: {
+    cartNum1(){
+      console.log(1);
+    }
+  },
   components: { App },
-  template: '<App title-name1="title-name"/>',
+  template: '<App title-name1="title-name" user=""/>',
   mounted(){
     setTimeout(()=>{
       this.cartNum1 = 0;
+      this.cartNum3 = 2;
     }, 1000)
   }
 })
@@ -39,7 +51,35 @@ vm.$watch(
     return this.cartNum1 + this.cartNum2
   }, function handleWatch (newVal, oldVal) {
     // 做点什么
+    this._watchers[1].deps[0].subs = [];
+    console.log(this._watchers[1].deps);
+    console.log(this);
     console.log(`${newVal}, ${oldVal}`);
+  }, {
+    deep: true
+  }
+)
+
+// 函数
+vm.$watch(
+  function watch () {
+    return this.cartNum1
+  }, function handleWatch (newVal, oldVal) {
+    // 做点什么
+    console.log('不会执行');
+  }, {
+    deep: true,
+
+  }
+)
+
+// 函数
+vm.$watch(
+  function watch () {
+    return this.cartNum3
+  }, function handleWatch (newVal, oldVal) {
+    // 做点什么
+    console.log('不会执行2');
   }, {
     deep: true
   }
@@ -57,5 +97,21 @@ vm.$watch(
 //     deep: true
 //   }
 // )
+
+var obj = {
+  name1: 'zz'
+}
+
+var keys = Object.keys(Object.create(obj, {
+  title: {
+    value: '标题',
+    enumerable: true
+  },
+  age: {
+    enumerable: true
+  }
+}))
+
+console.log(keys);
 
 
