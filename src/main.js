@@ -14,7 +14,10 @@ Vue.config.productionTip = false
 
 const data = {
   obj: {
-    a: 1
+    a: 1,
+    arr: [1, 2, {
+      name: 'zz'
+    }]
   }
 };
 // Object.defineProperty(data, 'name', {
@@ -64,6 +67,24 @@ let vm = new Vue({
 })
 
 Vue.set(vm, 'age', 2);
+
+let obj = {
+  a: [1,2,3]
+}
+
+Object.defineProperty(obj, 'arr', {
+  configurable: true,
+  enumerable: true,
+  get(){
+    return this.a;
+  },
+  set(value){
+    this.a = value;
+  }
+})
+
+obj.arr[1] = 5;
+console.log(obj);
 
 // // 函数
 // vm.$watch(

@@ -3,7 +3,7 @@
     <img src="./assets/logo.png">
     {{titleName}}
     age：{{age}}
-    obj: {{obj}}, {{obj.a}} ,{{obj.b}}
+    obj: {{obj}}, {{obj.arr}} ,{{obj.b}}
     <!--<router-view/>-->
   </div>
 </template>
@@ -33,7 +33,10 @@ export default {
   	console.log(this.titleName);
   	return {
       obj: {
-        a: 1
+        a: 1,
+        arr: [1, 2, {
+          name: 'zz'
+        }]
       }
     }
 //    return ['a']
@@ -50,6 +53,11 @@ export default {
   mounted(){
   	console.log(this._data);
     this.obj = Object.assign(this.obj, { b: 2 })
+    this.obj.arr[0] = 3;
+    setTimeout(()=>{
+      debugger
+      this.obj.arr[2].name = 'bbb';
+    }, 1000)
   }
 }
 </script>
