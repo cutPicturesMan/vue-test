@@ -2,6 +2,8 @@
   <div id="app">
     <img src="./assets/logo.png">
     {{titleName}}
+    age：{{age}}
+    obj: {{obj}}, {{obj.a}} ,{{obj.b}}
     <!--<router-view/>-->
   </div>
 </template>
@@ -31,7 +33,7 @@ export default {
   	console.log(this.titleName);
   	return {
       obj: {
-        name: 'zz'
+        a: 1
       }
     }
 //    return ['a']
@@ -47,6 +49,7 @@ export default {
   },
   mounted(){
   	console.log(this._data);
+    this.obj = Object.assign(this.obj, { b: 2 })
   }
 }
 </script>
