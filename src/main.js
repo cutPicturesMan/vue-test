@@ -13,6 +13,7 @@ console.log(Dep.target);
 Vue.config.productionTip = false
 
 const data = {
+  name: 1,
   obj: {
     a: 1
   }
@@ -55,7 +56,7 @@ let vm = new Vue({
   template: '<App title-name1="title-name" user=""/>',
   mounted(){
     console.log(this.name);
-    this.name = '123';
+    // this.name = '123';
     console.log(this.name);
     setTimeout(()=>{
 
@@ -64,6 +65,23 @@ let vm = new Vue({
 })
 
 Vue.set(vm, 'age', 2);
+
+// 函数
+vm.$watch(
+  function watch () {
+    return this.name
+  }, function handleWatch (newVal, oldVal) {
+    console.error(12222);
+
+    if(newVal){
+      // 做点什么
+      console.log(`${newVal}, ${oldVal}`);
+    }
+  }, {
+    deep: true,
+    // immediate: true
+  }
+)
 
 // // 函数
 // vm.$watch(

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <!--<img src="./assets/logo.png">-->
     {{titleName}}
     age：{{age}}
     obj: {{obj}}, {{obj.a}} ,{{obj.b}}
@@ -38,18 +38,25 @@ export default {
     }
 //    return ['a']
   },
+  methods: {
+  	sm: function(){
+      console.log(123);
+    }
+  },
   watch: {
-//  	'obj.name': function(){
-//  		return
-//  		console.log(123);
-//    },
+  	'obj': 'sm',
 //    'titleName': function(){
 //  		console.error(123);
 //    },
   },
   mounted(){
-  	console.log(this._data);
+  	console.log(this.obj);
     this.obj = Object.assign(this.obj, { b: 2 })
+
+    this.$set(this.obj, 'c', 3)
+    this.$set({
+      aa: 1
+    }, 'bb', 2)
   }
 }
 </script>
