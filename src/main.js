@@ -4,29 +4,28 @@ import Vue from 'vue'
 import $ from 'jquery'
 import App from './App'
 // import router from './router'
-import a from './a'
-import Dep from './test'
-console.log(Dep.target);
-(new Dep()).log()
-console.log(Dep.target);
 
 Vue.config.productionTip = false
+
+let arr = [];
+
+Object.defineProperty(arr, 'a', function(){
+  return 122;
+})
+
+console.log(arr.a);
 
 const data = {
   name: 1,
   obj: {
-    a: 1
+    // level1: {
+    //   level2: {
+    //     level3: 3
+    //   }
+    // }
+    arr: [{name: 1}]
   }
 };
-// Object.defineProperty(data, 'name', {
-//   configurable: true,
-//   enumerable: true,
-//   get: ()=>{
-//     return {
-//       a: 1
-//     }
-//   }
-// })
 
 /* eslint-disable no-new */
 let vm = new Vue({
@@ -55,90 +54,33 @@ let vm = new Vue({
   components: { App },
   template: '<App title-name1="title-name" user=""/>',
   mounted(){
-    console.log(this.name);
-    // this.name = '123';
-    console.log(this.name);
-    setTimeout(()=>{
+    this.$on('aB', (res)=>{
+      console.log(1)
+    })
+    this.$on('aB', (res)=>{
+      console.log(2)
+    })
 
+
+    setTimeout(()=>{
+      // this.obj.arr[0].name = 2;
+      // this.obj.arr.push({name: 2});
+      // this.$set(this.obj.arr[0], 'age', 26);
+      this.$emit('aB', 1, 2)
     }, 1000)
   }
 })
 
-Vue.set(vm, 'age', 2);
-
 // 函数
-vm.$watch(
-  function watch () {
-    return this.name
-  }, function handleWatch (newVal, oldVal) {
+vm.$watch('obj', function handleWatch (newVal, oldVal) {
     console.error(12222);
 
     if(newVal){
       // 做点什么
-      console.log(`${newVal}, ${oldVal}`);
+      console.log(JSON.stringify(newVal), JSON.stringify(oldVal));
     }
   }, {
     deep: true,
     // immediate: true
   }
 )
-
-// // 函数
-// vm.$watch(
-//   function watch () {
-//     return this.cartNum1 + this.cartNum2
-//   }, function handleWatch (newVal, oldVal) {
-//     if(newVal){
-//       // 做点什么
-//       console.log(this._watchers[1].deps);
-//       console.log(this);
-//       console.log(`${newVal}, ${oldVal}`);
-//     }
-//   }, {
-//     deep: true,
-//     immediate: true
-//   }
-// )
-//
-// // 函数
-// vm.$watch(
-//   function watch () {
-//     return this.cartNum1
-//   }, function handleWatch (newVal, oldVal) {
-//     if(newVal) {
-//       this.cartNum1 = 2;
-//       // this._watchers[2].deps[0].subs = [];
-//       console.log('不会执行');
-//     }
-//   }, {
-//     deep: true,
-//     immediate: true
-//   }
-// )
-//
-// // 函数
-// vm.$watch(
-//   function watch () {
-//     return this.cartNum3
-//   }, function handleWatch (newVal, oldVal) {
-//     if(newVal) {
-//       console.log('不会执行2');
-//     }
-//   }, {
-//     deep: true,
-//     immediate: true
-//   }
-// )
-
-// // 函数
-// vm.$watch(
-//   function () {
-//     debugger
-//
-//     return this.info
-//   }, function (newVal, oldVal) {
-//     // 做点什么
-//   }, {
-//     deep: true
-//   }
-// )
