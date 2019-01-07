@@ -7,9 +7,15 @@ import App from './App'
 
 Vue.config.productionTip = false
 
-Array = {};
-console.log(typeof Array.prototype.slice); // "undefined"
-console.log(typeof [].slice);    // "function"
+// Array = {};
+// console.log(typeof Array.prototype.slice); // "undefined"
+// console.log(typeof [].slice);    // "function"
+
+void function iife() {
+  console.log(111);
+}();
+
+iife();
 
 // let arr = [];
 //
