@@ -7,34 +7,6 @@ import App from './App'
 
 Vue.config.productionTip = false
 
-// Array = {};
-// console.log(typeof Array.prototype.slice); // "undefined"
-// console.log(typeof [].slice);    // "function"
-
-void function iife() {
-  console.log(111);
-}();
-
-iife();
-
-// let arr = [];
-//
-// Object.defineProperty(arr, 'a', function(){
-//   return 122;
-// })
-//
-// console.log(arr.a);
-
-function fn(){
-  let arr1 = Array.prototype.slice.call(arguments);
-  let arr2 = [].slice.call(arguments);
-  console.log(arr1);
-  console.log(arr2);
-  console.log(arguments);
-}
-
-fn(1);
-
 const data = {
   name: 1,
   obj: {
@@ -91,16 +63,22 @@ let vm = new Vue({
   }
 })
 
-// 函数
-vm.$watch('obj', function handleWatch (newVal, oldVal) {
-    console.error(12222);
+console.log((new Date('2019-02-19')).toString())
 
-    if(newVal){
-      // 做点什么
-      console.log(JSON.stringify(newVal), JSON.stringify(oldVal));
+const target = new Date('2019-02-19');
+const handler = {
+  get(target, prop) {
+    console.log(prop);
+    return Reflect.get(target, prop);
+
+    return target[prop].bind(target);
+
+    if (prop === 'getDate') {
+      return target.getDate.bind(target);
     }
-  }, {
-    deep: true,
-    // immediate: true
+    return Reflect.get(target, prop);
   }
-)
+};
+const proxy = new Proxy(target, handler);
+
+console.log(proxy.toString())
