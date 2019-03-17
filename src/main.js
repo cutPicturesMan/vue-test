@@ -44,7 +44,11 @@ let vm = new Vue({
   // },
   data,
   components: { App },
-  template: '<App title-name1="title-name" user=""/>',
+  template: `<App title-name1="title-name" user="">
+      <p>
+        <nav>123</nav>
+      </p>
+  </App>`,
   mounted(){
     this.$on('aB', (res)=>{
       console.log(1)
@@ -62,23 +66,3 @@ let vm = new Vue({
     }, 1000)
   }
 })
-
-console.log((new Date('2019-02-19')).toString())
-
-const target = new Date('2019-02-19');
-const handler = {
-  get(target, prop) {
-    console.log(prop);
-    return Reflect.get(target, prop);
-
-    return target[prop].bind(target);
-
-    if (prop === 'getDate') {
-      return target.getDate.bind(target);
-    }
-    return Reflect.get(target, prop);
-  }
-};
-const proxy = new Proxy(target, handler);
-
-console.log(proxy.toString())

@@ -2,6 +2,8 @@
   <div id="app">
     <!--<img src="./assets/logo.png">-->
     <!--<router-view/>-->
+    <slot></slot>
+    <strong>{{name}}</strong>
   </div>
 </template>
 
@@ -27,7 +29,9 @@ export default {
 //    }
 //  },
   data(){
-  	return {}
+  	return {
+  	  name: 'zz'
+    }
   },
   methods: {
 
