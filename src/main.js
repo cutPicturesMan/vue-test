@@ -44,11 +44,7 @@ let vm = new Vue({
   // },
   data,
   components: { App },
-  template: `<App title-name1="title-name" user="">
-      <p>
-        <nav>123</nav>
-      </p>
-  </App>`,
+  template: `<App><p><a>1<a href="">2</a><div>123</div></p></App>`,
   mounted(){
     this.$on('aB', (res)=>{
       console.log(1)

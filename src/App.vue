@@ -3,6 +3,7 @@
     <!--<img src="./assets/logo.png">-->
     <!--<router-view/>-->
     <slot></slot>
+		<svg><text :x="x" :y="y" :fill="color">{{ text }}</text></svg>
     <strong>{{name}}</strong>
   </div>
 </template>
@@ -30,7 +31,11 @@ export default {
 //  },
   data(){
   	return {
-  	  name: 'zz'
+  	  name: 'zz',
+      x: 64,
+      y: 128,
+      color: 'red',
+      text: 'svg text'
     }
   },
   methods: {
