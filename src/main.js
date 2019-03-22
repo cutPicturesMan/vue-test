@@ -44,7 +44,18 @@ let vm = new Vue({
   // },
   data,
   components: { App },
-  template: `<App><p><a>1<a href="">2</a><div>123</div></p></App>`,
+  // template: `<App></br><p><a>1<a href="">2</a><div>123</div></p></App>`,
+  // template: `test<123>`,
+  template: `
+  <div class="d">
+    <style>
+      .d {
+        background-color: yellow;
+      }
+    </style>
+    <strong>a</strong>
+  </div>
+  `,
   mounted(){
     this.$on('aB', (res)=>{
       console.log(1)
