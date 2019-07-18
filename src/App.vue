@@ -1,41 +1,17 @@
 <template>
-  <div id="app">
-    <!--<img src="./assets/logo.png">-->
-    <!--<router-view/>-->
-    <slot></slot>
-		<svg><text :x="x" :y="y" :fill="color">{{ text }}</text></svg>
-    <strong>{{name}}</strong>
-  </div>
+	<div>
+		<div id="app">
+
+		</div>
+	</div>
 </template>
 
 <script>
 export default {
   name: 'App',
-//  props: ['title', 'user'],
-//  props: {
-//    title: String,
-//    user: Boolean
-//  },
-//  props: {
-//    titleName: {
-//      type: [Boolean, String, Object],
-//      default(){
-//      	return {};
-//      }
-//    },
-//    user: {
-//    	type: String,
-//      required: true,
-//      default: ''
-//    }
-//  },
   data(){
   	return {
-  	  name: 'zz',
-      x: 64,
-      y: 128,
-      color: 'red',
-      text: 'svg text'
+			text:'app组件内部'
     }
   },
   methods: {
