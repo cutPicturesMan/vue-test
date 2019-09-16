@@ -300,22 +300,244 @@ import App from './App'
 //     }
 // }).$mount('#app')
 
-new Vue({
-    template: `<div><test/></div>`,
-    components: {
-        test: () => ({
-            component: new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    reject()
-                    // wait for promise resolve and then parent update
-                    Promise.resolve().then(() => {
-                        Vue.nextTick(next)
-                    })
-                }, 50)
-            }),
-            loading: { template: `<div>loading</div>` },
-            error: { template: `<div>error</div>` },
-            delay: 0
-        })
-    }
-}).$mount('#app')
+// new Vue({
+//     template: `<div><test/></div>`,
+//     components: {
+//         test: () => ({
+//             component: new Promise((resolve, reject) => {
+//                 console.log(123);
+//                 setTimeout(() => {
+//                   debugger
+//                   resolve()
+//                     // wait for promise resolve and then parent update
+//                     Promise.resolve().then(() => {
+//                         // Vue.nextTick(next)
+//                     })
+//                 }, 5000)
+//             }),
+//             loading: { template: `<div>loading</div>` },
+//             error: { template: `<div>error</div>` },
+//             delay: 100
+//         })
+//     }
+// }).$mount('#app')
+
+// new Vue({
+//   data: {
+//     ok: true,
+//     arr: [{name: 'zz', k: Symbol('z')}, {name: 'bb', k: Symbol('b')}],
+//     obj: {
+//       name: 'zz'
+//     }
+//   },
+//   template: `
+//         <div id="tpl">
+//           <div :id="'item' + item.name" v-for="item in arr" :key="item.k">{{item.name}}</div>
+//         </div>
+//       `,
+//   mounted(){
+//     setTimeout(()=>{
+//       debugger
+//       this.ok = false;
+//     }, 1000)
+//   }
+// }).$mount('#app1')
+
+// new Vue({
+//   template: `
+//     <test :t="text" length="1">
+//       {{text}}
+//       <template v-slot="p">
+//         <div>{{p.obj.text}}</div>
+//       </template>
+//     </test>
+//   `,
+//   props: {
+//     a: {
+//       type: Number,
+//       default: 123
+//     }
+//   },
+//   data: {
+//     text: '1'
+//   },
+//   components: {
+//     test: {
+//       props: {
+//         t: {
+//           type: [String, Number],
+//           default: 2
+//         }
+//       },
+//       data(){
+//         return {
+//           obj: {
+//             text: '文字'
+//           }
+//         }
+//       },
+//       template: `
+//         <div><slot :obj="obj"></slot></div>
+//       `,
+//     }
+//   },
+//   mounted(){
+//     setTimeout(()=>{
+//       this.text = 2
+//     }, 1000)
+//   }
+// }).$mount('#app1')
+
+// new Vue({
+//   template: `<fb>
+//     <template v-slot:foo>
+//       first
+//     </template>
+//     <p>second</p>
+//   </fb>`,
+//   data: {
+//     title: 'test'
+//   },
+//   components: {
+//     'fb': {
+//       functional: true,
+//       render(createElement, ctx) {
+//         console.log(ctx.slots());
+//         debugger
+//         return createElement('button', ctx.children)
+//       }
+//     }
+//   }
+// }).$mount('#app1')
+
+// const vm = new Vue({
+//   template: `
+//          <svg>
+//            <test></test>
+//          </svg>
+//        `,
+//   components: {
+//     test: {
+//       template: `
+//            <foreignObject>
+//              <p xmlns="http://www.w3.org/1999/xhtml"></p>
+//            </foreignObject>
+//            `
+//     }
+//   }
+// }).$mount('#app1')
+
+let one = {
+  template: '<div>one</div>',
+  created: () => { console.log('one created') },
+  mounted: () => { console.log('one mounted') },
+  activated: () => { console.log('one activated') },
+  deactivated: () => { console.log('one deactivated') },
+  destroyed: () => { console.log('one destroyed' )}
+}
+let two = {
+  template: '<div>two</div>',
+  created: () => { console.log('two created') },
+  mounted: () => { console.log('two mounted') },
+  activated: () => { console.log('two activated') },
+  deactivated: () => { console.log('two deactivated') },
+  destroyed: () => { console.log('two destroyed' )}
+}
+
+
+one.template = '<div><two/><two/><span>123</span></div>'
+one.components = { two }
+
+const vm = new Vue({
+  template: `
+        <div>
+          <keep-alive>
+            <one v-if="ok"/>
+          </keep-alive>
+        </div>
+      `,
+  data: {
+    ok: true
+  },
+  components: {
+    one,
+  }
+}).$mount('#app1')
+
+setTimeout(()=>{
+  vm.ok = false
+  setTimeout(()=>{
+    vm.ok = true
+  }, 1000)
+}, 1000)
+
+// new Vue({
+//   render(h){
+//     return h('test', {
+//       scopedSlots: {
+//         item: function(props){
+//           return h('div', props.text)
+//         }
+//       }
+//     })
+//   },
+//   components: {
+//     test: {
+//       render(h){
+//         return h('strong', {
+//           text: '123',
+//         }, [
+//           h('div', this.$scopedSlots.item)
+//         ])
+//       }
+//     }
+//   }
+// }).$mount('#app1')
+
+// new Vue({
+//   render (h) {
+//     return h('div', { key: Symbol('symbol') })
+//   }
+// }).$mount('#app1')
+
+
+// Vue.component('base-input', {
+//   props: ['value'],
+//   render (h) {
+//     return h('input', {
+//       domProps: {
+//         value: this.value
+//       },
+//       on: {
+//         input: e => this.$emit('input', e.target.value)
+//       }
+//     })
+//   }
+// })
+//
+// Vue.component('functional-wrapper', {
+//   functional: true,
+//   render (h, ctx) {
+//     console.log(ctx.data);
+//     // delete ctx.data.model
+//     return h('base-input', ctx.data)
+//   }
+// })
+//
+// new Vue({
+//   el: '#app',
+//   data: {
+//     internalVal: ''
+//   },
+//   computed: {
+//     val: {
+//       get () {
+//         return this.internalVal
+//       },
+//       set (val) {
+//         console.log('input')
+//         this.internalVal = val
+//       }
+//     }
+//   }
+// })
