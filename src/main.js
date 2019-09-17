@@ -1,8 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import $ from 'jquery'
-import App from './App'
+import Vue from "vue";
 // import router from './router'
 
 // Vue.config.productionTip = false
@@ -429,30 +427,51 @@ import App from './App'
 
 let one = {
   template: '<div>one</div>',
-  created: () => { console.log('one created') },
-  mounted: () => { console.log('one mounted') },
-  activated: () => { console.log('one activated') },
-  deactivated: () => { console.log('one deactivated') },
-  destroyed: () => { console.log('one destroyed' )}
+  created: () => {
+    console.log('one created')
+  },
+  mounted: () => {
+    console.log('one mounted')
+  },
+  activated: () => {
+    console.log('one activated')
+  },
+  deactivated: () => {
+    console.log('one deactivated')
+  },
+  destroyed: () => {
+    console.log('one destroyed')
+  }
 }
 let two = {
   template: '<div>two</div>',
-  created: () => { console.log('two created') },
-  mounted: () => { console.log('two mounted') },
-  activated: () => { console.log('two activated') },
-  deactivated: () => { console.log('two deactivated') },
-  destroyed: () => { console.log('two destroyed' )}
+  created: () => {
+    console.log('two created')
+  },
+  mounted: () => {
+    console.log('two mounted')
+  },
+  activated: () => {
+    console.log('two activated')
+  },
+  deactivated: () => {
+    console.log('two deactivated')
+  },
+  destroyed: () => {
+    console.log('two destroyed')
+  }
 }
 
 
 one.template = '<div><two/><two/><span>123</span></div>'
-one.components = { two }
+one.components = {two}
 
 const vm = new Vue({
   template: `
         <div>
           <keep-alive>
             <one v-if="ok"/>
+            2
           </keep-alive>
         </div>
       `,
@@ -464,9 +483,9 @@ const vm = new Vue({
   }
 }).$mount('#app1')
 
-setTimeout(()=>{
+setTimeout(() => {
   vm.ok = false
-  setTimeout(()=>{
+  setTimeout(() => {
     vm.ok = true
   }, 1000)
 }, 1000)
