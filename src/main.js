@@ -425,70 +425,137 @@ import Vue from "vue";
 //   }
 // }).$mount('#app1')
 
-let one = {
-  template: '<div>one</div>',
-  created: () => {
-    console.log('one created')
-  },
-  mounted: () => {
-    console.log('one mounted')
-  },
-  activated: () => {
-    console.log('one activated')
-  },
-  deactivated: () => {
-    console.log('one deactivated')
-  },
-  destroyed: () => {
-    console.log('one destroyed')
-  }
-}
-let two = {
-  template: '<div>two</div>',
-  created: () => {
-    console.log('two created')
-  },
-  mounted: () => {
-    console.log('two mounted')
-  },
-  activated: () => {
-    console.log('two activated')
-  },
-  deactivated: () => {
-    console.log('two deactivated')
-  },
-  destroyed: () => {
-    console.log('two destroyed')
-  }
-}
+// let one = {
+//   template: '<div>one</div>',
+//   created: () => {
+//     console.log('one created')
+//   },
+//   mounted: () => {
+//     console.log('one mounted')
+//   },
+//   activated: () => {
+//     console.log('one activated')
+//   },
+//   deactivated: () => {
+//     console.log('one deactivated')
+//   },
+//   destroyed: () => {
+//     console.log('one destroyed')
+//   }
+// }
+// let two = {
+//   template: '<div>two</div>',
+//   created: () => {
+//     console.log('two created')
+//   },
+//   mounted: () => {
+//     console.log('two mounted')
+//   },
+//   activated: () => {
+//     console.log('two activated')
+//   },
+//   deactivated: () => {
+//     console.log('two deactivated')
+//   },
+//   destroyed: () => {
+//     console.log('two destroyed')
+//   }
+// }
+//
+//
+// one.template = '<div><two/><two/><span>123</span></div>'
+// one.components = {two}
+//
+// const vm = new Vue({
+//   template: `
+//         <div>
+//           <keep-alive>
+//             <one v-if="ok"/>
+//             2
+//           </keep-alive>
+//         </div>
+//       `,
+//   data: {
+//     ok: true
+//   },
+//   components: {
+//     one,
+//   }
+// }).$mount('#app1')
+//
+// setTimeout(() => {
+//   vm.ok = false
+//   setTimeout(() => {
+//     vm.ok = true
+//   }, 1000)
+// }, 1000)
 
+// const child = {
+//   template: `
+//         <div>
+//           <div class="default"><slot></slot></div>
+//           <div class="named"><slot name="foo"></slot></div>
+//         </div>
+//       `
+// }
+//
+// const vm = new Vue({
+//   template: '<test><span slot="foo"> </span><span> </span></test>',
+//   components: {
+//     test: {
+//       render (h, ctx) {
+//         const slots = ctx.slots()
+//         debugger
+//         return h(child, slots.foo)
+//       }
+//     }
+//   }
+// }).$mount('#app1')
 
-one.template = '<div><two/><two/><span>123</span></div>'
-one.components = {two}
-
-const vm = new Vue({
+const Tab = Vue.extend({
   template: `
-        <div>
-          <keep-alive>
-            <one v-if="ok"/>
-            2
-          </keep-alive>
-        </div>
-      `,
-  data: {
-    ok: true
-  },
-  components: {
-    one,
-  }
-}).$mount('#app1')
+  <div>{{ random }}</div>
+  `,
 
-setTimeout(() => {
-  vm.ok = false
-  setTimeout(() => {
-    vm.ok = true
-  }, 1000)
-}, 1000)
+  data: () => ({
+    random: ''
+  }),
+
+  created() {
+    this.random = Math.random();
+  }
+});
+
+new Vue({
+  template: `
+    <div>
+      <nav>
+        <a @click="goto('tab-a')">Tab A</a>
+        <a @click="goto('')">Tab B</a>
+        <a @click="goto('tab-c')">Tab C</a>
+      </nav>
+      
+      <keep-alive>
+        <component :is="current"></component>
+      </keep-alive>
+    </div>
+  `,
+  components: {
+    'tab-a': Tab,
+    'tab-b': Tab,
+    'tab-c': Tab
+  },
+
+  data: {
+    current: 'tab-a'
+  },
+
+  methods: {
+    goto(target) {
+      this.current = target;
+    }
+  }
+}).$mount('#app1');
 
 // new Vue({
 //   render(h){
