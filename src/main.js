@@ -512,50 +512,62 @@ import Vue from "vue";
 //   }
 // }).$mount('#app1')
 
-const Tab = Vue.extend({
-  template: `
-  <div>{{ random }}</div>
-  `,
-
-  data: () => ({
-    random: ''
-  }),
-
-  created() {
-    this.random = Math.random();
-  }
-});
-
-new Vue({
-  template: `
-    <div>
-      <nav>
-        <a @click="goto('tab-a')">Tab A</a>
-        <a @click="goto('')">Tab B</a>
-        <a @click="goto('tab-c')">Tab C</a>
-      </nav>
-      
-      <keep-alive>
-        <component :is="current"></component>
-      </keep-alive>
-    </div>
-  `,
-  components: {
-    'tab-a': Tab,
-    'tab-b': Tab,
-    'tab-c': Tab
-  },
-
+const vm = new Vue({
+  template: '<div @click="toggle">{{text}}</div>',
   data: {
-    current: 'tab-a'
+    text: Math.random()
   },
-
   methods: {
-    goto(target) {
-      this.current = target;
+    toggle(){
+      this.text = Math.random();
     }
   }
-}).$mount('#app1');
+}).$mount('#app1')
+
+// const Tab = Vue.extend({
+//   template: `
+//   <div>{{ random }}</div>
+//   `,
+//
+//   data: () => ({
+//     random: ''
+//   }),
+//
+//   created() {
+//     this.random = Math.random();
+//   }
+// });
+//
+// new Vue({
+//   template: `
+//     <div>
+//       <nav>
+//         <a @click="goto('tab-a')">Tab A</a>
+//         <a @click="goto('')">Tab B</a>
+//         <a @click="goto('tab-c')">Tab C</a>
+//       </nav>
+//
+//       <keep-alive>
+//         <component :is="current"></component>
+//       </keep-alive>
+//     </div>
+//   `,
+//   components: {
+//     'tab-a': Tab,
+//     'tab-b': Tab,
+//     'tab-c': Tab
+//   },
+//
+//   data: {
+//     current: 'tab-a'
+//   },
+//
+//   methods: {
+//     goto(target) {
+//       this.current = target;
+//     }
+//   }
+// }).$mount('#app1');
 
 // new Vue({
 //   render(h){
