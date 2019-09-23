@@ -513,13 +513,24 @@ import Vue from "vue";
 // }).$mount('#app1')
 
 const vm = new Vue({
-  template: '<div @click="toggle">{{text}}</div>',
+  template: `
+    <p
+	@click.middle.exact="click"
+	@click.middle="click"
+	@click.right="click"
+	@mouseup="click"
+	@auxclick="click2"
+	>{{ message }}</p>`,
   data: {
-    text: Math.random()
-  },
-  methods: {
-    toggle(){
-      this.text = Math.random();
+    message: 'Hello Vue.js!'
+  },methods:{
+    click($e){
+      console.log('click vue');
+      console.log($e,$e.which);
+    },
+    click2($e){
+      console.log('click aux');
+      console.log($e,$e.which);
     }
   }
 }).$mount('#app1')
