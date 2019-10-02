@@ -513,13 +513,26 @@ import Vue from "vue";
 // }).$mount('#app1')
 
 const vm = new Vue({
-  template: '<div @click="toggle">{{text}}</div>',
+  template: '<div @[event]="dynamic" @click.self.native.capture.once="static"></div>',
+  // template: '<test @click.native="a"></test>',
   data: {
-    text: Math.random()
+    text: Math.random(),
+    event: 'click'
   },
+  // components: {
+  //   test: {
+  //     render (h, ctx) {
+  //       return h('div', 123)
+  //     }
+  //   }
+  // },
   methods: {
-    toggle(){
-      this.text = Math.random();
+    dynamic(){
+      console.log('abc')
+    },
+    static(){
+    },
+    c(){
     }
   }
 }).$mount('#app1')
