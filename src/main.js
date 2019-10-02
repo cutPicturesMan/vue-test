@@ -513,7 +513,7 @@ import Vue from "vue";
 // }).$mount('#app1')
 
 const vm = new Vue({
-  template: '<div @[event]="dynamic" @click.self.native.capture.once="static"></div>',
+  template: '<div @click.alt.exact="c" @[event]="dynamic" @click.self.native.capture.once="static"></div>',
   // template: '<test @click.native="a"></test>',
   data: {
     text: Math.random(),
