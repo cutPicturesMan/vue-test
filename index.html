@@ -9,7 +9,13 @@
 	<div id="app" data-server-rendered>
 		<functional-wrapper v-model="val"></functional-wrapper>
 	</div>
-	<div id="app1"></div>
+	<div id="app1">
+		<div v-pre>
+			<template>
+				<div class="test">this template for js use, should not be  compiled</div>
+			</template>
+		</div>
+	</div>
 	<div id="app2"></div>
 	<div id="app3"></div>
     <!-- built files will be auto injected -->

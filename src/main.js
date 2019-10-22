@@ -513,21 +513,32 @@ import Vue from "vue";
 // }).$mount('#app1')
 
 const vm = new Vue({
+  template: `<div>	
+    <template v-if="msg">m</template>
+    <div v-else><span>v-else</span></div>
+    <!--<a :href="url">{{msg}}</a>-->
+    <!--<p>静态根节点<span>静态内容</span></p>-->
+	</div>`,
+  // template: `<div><p v-pre><span>{{msg}}</span><test></test></p></div>`,
+  // template: `<div><p v-pre><test></test></p></div>`,
   // template: `<div><p v-pre><template><span>{{msg}}</span></template></p></div>`,
-  template: `<div><p v-pre><span>{{msg}}</span></p></div>`,
+  // template: `<div v-pre><template><span>{{msg}}</span></template></div>`,
+  // template: `<div v-pre id="message1"><template id="template1"><p>{{msg}}</p></template></div>`,
+  // template: `<div><p v-pre><span>{{msg}}</span></p></div>`,
   // template: '<test @click.native="a"></test>',
   data: {
-    msg: 123,
+    url: '//www.xxx.com',
+    msg: 'message',
     text: Math.random(),
     event: 'click'
   },
-  // components: {
-  //   test: {
-  //     render (h, ctx) {
-  //       return h('div', 123)
-  //     }
-  //   }
-  // },
+  components: {
+    test: {
+      render (h, ctx) {
+        return h('div', 123)
+      }
+    }
+  },
   methods: {
     dynamic(){
       console.log('abc')
