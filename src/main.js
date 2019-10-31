@@ -512,12 +512,64 @@ import Vue from "vue";
 //   }
 // }).$mount('#app1')
 
+// var SourceMapConsumer = require('source-map').SourceMapConsumer;
+// const rawSourceMap = {
+//   version: 3,
+//   file: 'min.js',
+//   names: ['bar', 'baz', 'n'],
+//   sources: ['one.js', 'two.js'],
+//   sourceRoot: 'http://example.com/www/js/',
+//   mappings: 'CAAC,IAAI,IAAM,SAAUA,GAClB,OAAOC,IAAID;CCDb,IAAI,IAAM,SAAUE,GAClB,OAAOA'
+// };
+// // sourceMap.SourceMapConsumer.initialize({
+// //   "lib/mappings.wasm": "https://unpkg.com/source-map@0.7.3/lib/mappings.wasm"
+// // });
+//
+// const b =  async function () {
+//   let b = await new SourceMapConsumer(rawSourceMap);
+//   console.log(b);
+// }
+// b();
+//
+// const a =  async function () {
+//   const whatever = await SourceMapConsumer.with(rawSourceMap, null, consumer => {
+//     console.log(consumer);
+//     console.log(consumer.sources);
+//     // [ 'http://example.com/www/js/one.js',
+//     //   'http://example.com/www/js/two.js' ]
+//
+//     console.log(consumer.originalPositionFor({
+//       line: 2,
+//       column: 28
+//     }));
+//     // { source: 'http://example.com/www/js/two.js',
+//     //   line: 2,
+//     //   column: 10,
+//     //   name: 'n' }
+//
+//     console.log(consumer.generatedPositionFor({
+//       source: 'http://example.com/www/js/two.js',
+//       line: 2,
+//       column: 10
+//     }));
+//     // { line: 2, column: 28 }
+//
+//     consumer.eachMapping(function (m) {
+//       // ...
+//     });
+//
+//     return computeWhatever();
+//   });
+// }
+// a()
+
 const vm = new Vue({
+  delimiters: ['${', '}'],
   template: `<div>	
-    <template v-if="msg">m</template>
-    <div v-else><span>v-else</span></div>
-    <!--<a :href="url">{{msg}}</a>-->
-    <!--<p>静态根节点<span>静态内容</span></p>-->
+    <!--<template v-if="msg">m</template>-->
+    <!--<div v-else><span>v-else</span></div>-->
+    <a :href="url">{{msg}}</a>
+    <p>静态根节点<span>静态内容</span></p>
 	</div>`,
   // template: `<div><p v-pre><span>{{msg}}</span><test></test></p></div>`,
   // template: `<div><p v-pre><test></test></p></div>`,
