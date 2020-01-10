@@ -563,45 +563,85 @@ import Vue from "vue";
 // }
 // a()
 
-const vm = new Vue({
-  delimiters: ['${', '}'],
-  template: `<div>	
-    <!--<template v-if="msg">m</template>-->
-    <!--<div v-else><span>v-else</span></div>-->
-    <a :href="url">{{msg}}</a>
-    <p>静态根节点<span>静态内容</span></p>
-	</div>`,
-  // template: `<div><p v-pre><span>{{msg}}</span><test></test></p></div>`,
-  // template: `<div><p v-pre><test></test></p></div>`,
-  // template: `<div><p v-pre><template><span>{{msg}}</span></template></p></div>`,
-  // template: `<div v-pre><template><span>{{msg}}</span></template></div>`,
-  // template: `<div v-pre id="message1"><template id="template1"><p>{{msg}}</p></template></div>`,
-  // template: `<div><p v-pre><span>{{msg}}</span></p></div>`,
-  // template: '<test @click.native="a"></test>',
-  data: {
-    url: '//www.xxx.com',
-    msg: 'message',
-    text: Math.random(),
-    event: 'click'
-  },
-  components: {
-    test: {
-      render (h, ctx) {
-        return h('div', 123)
-      }
-    }
-  },
-  methods: {
-    dynamic(){
-      console.log('abc')
-    },
-    static(){
-    },
-    c(){
-      console.log(1);
-    }
+// 注册一个全局自定义指令 `v-focus`
+Vue.directive('focus', {
+  // 当被绑定的元素插入到 DOM 中时……
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus()
   }
-}).$mount('#app1')
+})
+//
+// const vm = new Vue({
+//   delimiters: ['&{', '}'],
+//   template: `<div>
+//     <!--<template v-if="msg">m</template>-->
+//     <!--<div v-else><span>v-else</span></div>-->
+//     <a :href="url">{{msg}}&{msg}</a>
+//     <input v-focus>
+//     <p>静态根节点<span>静态内容</span></p>
+// 	</div>`,
+//   // directives: {
+//   //   focus: {
+//   //     // 指令的定义
+//   //     inserted: function (el) {
+//   //       console.log(1);
+//   //       el.focus()
+//   //     }
+//   //   }
+//   // },
+//   // template: `<div><p v-pre><span>{{msg}}</span><test></test></p></div>`,
+//   // template: `<div><p v-pre><test></test></p></div>`,
+//   // template: `<div><p v-pre><template><span>{{msg}}</span></template></p></div>`,
+//   // template: `<div v-pre><template><span>{{msg}}</span></template></div>`,
+//   // template: `<div v-pre id="message1"><template id="template1"><p>{{msg}}</p></template></div>`,
+//   // template: `<div><p v-pre><span>{{msg}}</span></p></div>`,
+//   // template: '<test @click.native="a"></test>',
+//   data: {
+//     url: '//www.xxx.com',
+//     msg: 'message',
+//     text: Math.random(),
+//     event: 'click'
+//   },
+//   components: {
+//     test: {
+//       render (h, ctx) {
+//         return h('div', 123)
+//       }
+//     }
+//   },
+//   methods: {
+//     dynamic(){
+//       console.log('abc')
+//     },
+//     static(){
+//     },
+//     c(){
+//       console.log(1);
+//     }
+//   }
+// }).$mount('#app1')
+
+Vue.directive('demo', {
+  bind: function (el, binding, vnode) {
+    var s = JSON.stringify
+    el.innerHTML =
+      'name: '       + s(binding.name) + '<br>' +
+      'value: '      + s(binding.value) + '<br>' +
+      'expression: ' + s(binding.expression) + '<br>' +
+      'argument: '   + s(binding.arg) + '<br>' +
+      'modifiers: '  + s(binding.modifiers) + '<br>' +
+      'vnode keys: ' + Object.keys(vnode).join(', ')
+  }
+})
+
+new Vue({
+  template: '<div v-demo:foo.a.b="message"></div>',
+  data: {
+    message: 'hello!'
+  }
+}).$mount('#app2')
+
 
 // const Tab = Vue.extend({
 //   template: `
