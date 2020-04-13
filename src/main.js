@@ -512,15 +512,24 @@ import Vue from "vue";
 //   }
 // }).$mount('#app1')
 
+Vue.component('test', {
+  template: '<button v-on:click="onClick"><slot></slot></button>',
+  methods: {
+    onClick () {
+      this.$emit('testclick', 1, 2, 3);
+    }
+  }
+})
+
 const vm = new Vue({
   template: `<div>
-  <div @keyup.ctrl="c" @[event]="dynamic" @click.self.native.capture.once="static"></div>
-  <input type="text" @keyup.17="c">
+  <button v-on:click="onEmit">emit</button>
+  <!--<test @testclick="onClick">1</test>-->
+  <!--<test @testclick="onClick">2</test>-->
 </div>`,
   // template: '<test @click.native="a"></test>',
   data: {
-    text: Math.random(),
-    event: 'click'
+
   },
   // components: {
   //   test: {
@@ -530,14 +539,25 @@ const vm = new Vue({
   //   }
   // },
   methods: {
-    dynamic(){
-      console.log('abc')
+    onClick(){
+      console.log(arguments)
+    },
+    onEmit () {
+      this.$emit('testclick', 1, 2, 3);
     },
     static(){
     },
     c(){
       console.log(1);
     }
+  },
+  created () {
+    this.$on('testclick', ()=>{
+      console.log('test1');
+    })
+    this.$on('testclick', ()=>{
+      console.log('test2');
+    })
   }
 }).$mount('#app1')
 
