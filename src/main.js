@@ -552,12 +552,18 @@ const vm = new Vue({
     }
   },
   created () {
-    this.$on('testclick', ()=>{
-      console.log('test1');
-    })
-    this.$on('testclick', ()=>{
-      console.log('test2');
-    })
+    let a = 0;
+
+    function fn () {
+      console.log(++a);
+    }
+
+    function fn2 () {
+      console.log(++a);
+    }
+
+    this.$once('testclick', fn)
+    this.$once('testclick', fn2)
   }
 }).$mount('#app1')
 
