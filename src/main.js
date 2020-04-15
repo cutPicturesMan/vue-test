@@ -512,136 +512,54 @@ import Vue from "vue";
 //   }
 // }).$mount('#app1')
 
-// var SourceMapConsumer = require('source-map').SourceMapConsumer;
-// const rawSourceMap = {
-//   version: 3,
-//   file: 'min.js',
-//   names: ['bar', 'baz', 'n'],
-//   sources: ['one.js', 'two.js'],
-//   sourceRoot: 'http://example.com/www/js/',
-//   mappings: 'CAAC,IAAI,IAAM,SAAUA,GAClB,OAAOC,IAAID;CCDb,IAAI,IAAM,SAAUE,GAClB,OAAOA'
-// };
-// // sourceMap.SourceMapConsumer.initialize({
-// //   "lib/mappings.wasm": "https://unpkg.com/source-map@0.7.3/lib/mappings.wasm"
-// // });
-//
-// const b =  async function () {
-//   let b = await new SourceMapConsumer(rawSourceMap);
-//   console.log(b);
-// }
-// b();
-//
-// const a =  async function () {
-//   const whatever = await SourceMapConsumer.with(rawSourceMap, null, consumer => {
-//     console.log(consumer);
-//     console.log(consumer.sources);
-//     // [ 'http://example.com/www/js/one.js',
-//     //   'http://example.com/www/js/two.js' ]
-//
-//     console.log(consumer.originalPositionFor({
-//       line: 2,
-//       column: 28
-//     }));
-//     // { source: 'http://example.com/www/js/two.js',
-//     //   line: 2,
-//     //   column: 10,
-//     //   name: 'n' }
-//
-//     console.log(consumer.generatedPositionFor({
-//       source: 'http://example.com/www/js/two.js',
-//       line: 2,
-//       column: 10
-//     }));
-//     // { line: 2, column: 28 }
-//
-//     consumer.eachMapping(function (m) {
-//       // ...
-//     });
-//
-//     return computeWhatever();
-//   });
-// }
-// a()
-
-// 注册一个全局自定义指令 `v-focus`
-Vue.directive('focus', {
-  // 当被绑定的元素插入到 DOM 中时……
-  inserted: function (el) {
-    // 聚焦元素
-    el.focus()
-  }
-})
-//
-// const vm = new Vue({
-//   delimiters: ['&{', '}'],
-//   template: `<div>
-//     <!--<template v-if="msg">m</template>-->
-//     <!--<div v-else><span>v-else</span></div>-->
-//     <a :href="url">{{msg}}&{msg}</a>
-//     <input v-focus>
-//     <p>静态根节点<span>静态内容</span></p>
-// 	</div>`,
-//   // directives: {
-//   //   focus: {
-//   //     // 指令的定义
-//   //     inserted: function (el) {
-//   //       console.log(1);
-//   //       el.focus()
-//   //     }
-//   //   }
-//   // },
-//   // template: `<div><p v-pre><span>{{msg}}</span><test></test></p></div>`,
-//   // template: `<div><p v-pre><test></test></p></div>`,
-//   // template: `<div><p v-pre><template><span>{{msg}}</span></template></p></div>`,
-//   // template: `<div v-pre><template><span>{{msg}}</span></template></div>`,
-//   // template: `<div v-pre id="message1"><template id="template1"><p>{{msg}}</p></template></div>`,
-//   // template: `<div><p v-pre><span>{{msg}}</span></p></div>`,
-//   // template: '<test @click.native="a"></test>',
-//   data: {
-//     url: '//www.xxx.com',
-//     msg: 'message',
-//     text: Math.random(),
-//     event: 'click'
-//   },
-//   components: {
-//     test: {
-//       render (h, ctx) {
-//         return h('div', 123)
-//       }
-//     }
-//   },
-//   methods: {
-//     dynamic(){
-//       console.log('abc')
-//     },
-//     static(){
-//     },
-//     c(){
-//       console.log(1);
-//     }
-//   }
-// }).$mount('#app1')
-
-Vue.directive('demo', {
-  bind: function (el, binding, vnode) {
-    var s = JSON.stringify
-    el.innerHTML =
-      'name: '       + s(binding.name) + '<br>' +
-      'value: '      + s(binding.value) + '<br>' +
-      'expression: ' + s(binding.expression) + '<br>' +
-      'argument: '   + s(binding.arg) + '<br>' +
-      'modifiers: '  + s(binding.modifiers) + '<br>' +
-      'vnode keys: ' + Object.keys(vnode).join(', ')
+Vue.component('test', {
+  template: '<button v-on:click="onClick"><slot></slot></button>',
+  methods: {
+    onClick () {
+      this.$emit('testclick', 1, 2, 3);
+    }
   }
 })
 
-new Vue({
-  template: '<div v-demo:foo.a.b="message"></div>',
+const vm = new Vue({
+  template: `<div>
+  <button v-on:click="onEmit">emit</button>
+  <!--<test @testclick="onClick">1</test>-->
+  <!--<test @testclick="onClick">2</test>-->
+</div>`,
+  // template: '<test @click.native="a"></test>',
   data: {
-    message: 'hello!'
-  }
-}).$mount('#app2')
 
+  },
+  // components: {
+  //   test: {
+  //     render (h, ctx) {
+  //       return h('div', 123)
+  //     }
+  //   }
+  // },
+  methods: {
+    onClick(){
+      console.log(arguments)
+    },
+    onEmit () {
+      this.$emit('testclick', 1, 2, 3);
+    },
+    static(){
+    },
+    c(){
+      console.log(1);
+    }
+  },
+  created () {
+    this.$on('testclick', ()=>{
+      console.log('test1');
+    })
+    this.$on('testclick', ()=>{
+      console.log('test2');
+    })
+  }
+}).$mount('#app1')
 
 // const Tab = Vue.extend({
 //   template: `
