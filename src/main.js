@@ -548,7 +548,11 @@ const vm = new Vue({
     static(){
     },
     c(){
-      console.log(1);
+      // let arr = Array.prototype.slice.call(arguments);
+      let arr = Array.slice(arguments);
+      arr.push('aaa');
+      console.log(arr);
+      console.log(arguments);
     }
   },
   created () {
@@ -564,6 +568,7 @@ const vm = new Vue({
 
     this.$once('testclick', fn)
     this.$once('testclick', fn2)
+    this.c(1, 2);
   }
 }).$mount('#app1')
 
