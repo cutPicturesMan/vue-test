@@ -512,65 +512,107 @@ import Vue from "vue";
 //   }
 // }).$mount('#app1')
 
-Vue.component('test', {
-  template: '<button v-on:click="onClick"><slot></slot></button>',
+function spy1 () {
+  console.log(1);
+}
+
+function spy2 () {
+  console.log(2);
+}
+
+const mixinA = Vue.extend({
+  created: spy1,
+  directives: {
+    c: {}
+  },
   methods: {
-    onClick () {
-      this.$emit('testclick', 1, 2, 3);
-    }
+    a: function () {}
   }
 })
 
+const mixinB = mixinA.extend({
+  created: spy2
+})
+
 const vm = new Vue({
-  template: `<div>
-  <button v-on:click="onEmit">emit</button>
-  <!--<test @testclick="onClick">1</test>-->
-  <!--<test @testclick="onClick">2</test>-->
-</div>`,
-  // template: '<test @click.native="a"></test>',
-  data: {
-
-  },
-  // components: {
-  //   test: {
-  //     render (h, ctx) {
-  //       return h('div', 123)
-  //     }
-  //   }
-  // },
+  mixins: [mixinB],
   methods: {
-    onClick(){
-      console.log(arguments)
-    },
-    onEmit () {
-      this.$emit('testclick', 1, 2, 3);
-    },
-    static(){
-    },
-    c(){
-      // let arr = Array.prototype.slice.call(arguments);
-      let arr = Array.slice(arguments);
-      arr.push('aaa');
-      console.log(arr);
-      console.log(arguments);
-    }
-  },
-  created () {
-    let a = 0;
-
-    function fn () {
-      console.log(++a);
-    }
-
-    function fn2 () {
-      console.log(++a);
-    }
-
-    this.$once('testclick', fn)
-    this.$once('testclick', fn2)
-    this.c(1, 2);
+    b: function () {}
   }
-}).$mount('#app1')
+})
+
+// Vue.component('test', {
+//   template: '<button v-on:click="onClick">{{a}}<slot></slot></button>',
+//   inject: ['a'],
+//   methods: {
+//     onClick () {
+//       this.$emit('testclick', 1, 2, 3);
+//     }
+//   }
+// })
+//
+// const vm = new Vue({
+//   template: `<div>
+//   <button v-on:click="onEmit">emit</button>
+//   <test @testclick="onClick">1</test>
+//   <!--<test @testclick="onClick">2</test>-->
+// </div>`,
+//   // template: '<test @click.native="a"></test>',
+//   data: {
+//     name: 'zz'
+//   },
+//   // components: {
+//   //   test: {
+//   //     render (h, ctx) {
+//   //       return h('div', 123)
+//   //     }
+//   //   }
+//   // },
+//   // provide: {
+//   //   a: '123'
+//   // },
+//   provide () {
+//     return {
+//       a: this.data
+//     }
+//   },
+//   methods: {
+//     onClick(){
+//       console.log(arguments)
+//     },
+//     onEmit () {
+//       this.$emit('testclick', 1, 2, 3);
+//     },
+//     static(){
+//     },
+//     c(){
+//       // let arr = Array.prototype.slice.call(arguments);
+//       let arr = Array.slice(arguments);
+//       arr.push('aaa');
+//       console.log(arr);
+//       console.log(arguments);
+//     }
+//   },
+//   created () {
+//     let a = 0;
+//
+//     function fn () {
+//       console.log(++a);
+//     }
+//
+//     function fn2 () {
+//       console.log(++a);
+//     }
+//
+//     this.$once('testclick', fn)
+//     this.$once('testclick', fn2)
+//     this.c(1, 2);
+//
+//     setTimeout(()=>{
+//       this.name = 321;
+//     }, 1000)
+//   }
+// }).$mount('#app1')
 
 // const Tab = Vue.extend({
 //   template: `
