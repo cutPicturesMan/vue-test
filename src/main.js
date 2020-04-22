@@ -521,6 +521,12 @@ function spy2 () {
 }
 
 const mixinA = Vue.extend({
+  el: '#app1',
+  data () {
+    return {
+      test1: 1
+    }
+  },
   created: spy1,
   directives: {
     c: {}
@@ -531,13 +537,41 @@ const mixinA = Vue.extend({
 })
 
 const mixinB = mixinA.extend({
+  el: '#app2',
+  data () {
+    return {
+      test2: 2
+    }
+  },
   created: spy2
 })
 
+Vue.mixin({
+  el: '#app1',
+  data () {
+    return {
+      test1: 1
+    }
+  },
+  methods: {
+    a: function () {}
+  },
+})
+
 const vm = new Vue({
-  mixins: [mixinB],
+  // el: '#app3',
+  // mixins: [mixinB],
+  data: {
+    test2: 2
+  },
   methods: {
     b: function () {}
+  },
+  created () {
+    console.log(this.$el);
+    console.log(this.test2);
+    console.log(this);
+    console.log(this.$options.methods);
   }
 })
 
