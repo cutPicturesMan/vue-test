@@ -669,7 +669,8 @@ new Vue({
   data: { a: 100 },
   computed: {
     b () {
-      return this.a + 1;
+      let b = this.a + 1;
+      return b;
     }
   },
   created () {
