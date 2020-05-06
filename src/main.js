@@ -519,64 +519,178 @@ function spy1 () {
 function spy2 () {
   console.log(2);
 }
+//
+// const mixinA = Vue.extend({
+//   el: '#app1',
+//   data () {
+//     return {
+//       test1: 1
+//     }
+//   },
+//   created: spy1,
+//   directives: {
+//     c: {}
+//   },
+//   methods: {
+//     a: function () {}
+//   }
+// })
+//
+// const mixinB = mixinA.extend({
+//   el: '#app2',
+//   data () {
+//     return {
+//       test2: 2
+//     }
+//   },
+//   created: spy2
+// })
+//
 
-const mixinA = Vue.extend({
-  el: '#app1',
-  data () {
-    return {
-      test1: 1
+// Vue.mixin({
+//   el: '#app1',
+//   data () {
+//     return {
+//       test1: 3
+//     }
+//   },
+//   methods: {
+//     a: function () {}
+//   },
+//   created: spy1,
+// })
+//
+// Vue.mixin({
+//   el: '#app1',
+//   data () {
+//     return {
+//       test1: 3
+//     }
+//   },
+//   watch: {
+//     test1: {
+//       handler() {
+//         console.log('mixin-watch-test1');
+//       }
+//     }
+//   },
+//   methods: {
+//     a: function () {}
+//   },
+//   created: spy1,
+// })
+//
+// const vm = new Vue({
+//   // el: '#app3',
+//   // mixins: [{
+//   //   data: {
+//   //     test2: 6
+//   //   },
+//   // }],
+//   data: {
+//     test2: 4
+//   },
+//   watch: {
+//     test1 () {
+//       console.log('new-watch-test1');
+//     }
+//   },
+//   methods: {
+//     b: function () {}
+//   },
+//   created () {
+//     console.log(111);
+//   }
+//   // created () {
+//   //   console.log(this.$el);
+//   //   console.log(this.test2);
+//   //   console.log(this);
+//   //   console.log(this.$options.methods);
+//   // }
+// })
+
+// function spy1 () {
+//
+//   console.log(1);
+// }
+//
+// function spy2 () {
+//   console.log(2);
+// }
+//
+// new Vue({
+//   methods: { foo: spy1, bar: spy2 },
+//   data: {
+//     ok: true
+//   },
+//   components: {
+//     test: {
+//       template: '<div></div>'
+//     }
+//   },
+//   render (h) {
+//     setTimeout(()=>{
+//       this.ok = false
+//     }, 1000)
+//
+//     return this.ok
+//       ? h('test', { on: { click: this.foo }})
+//       : h('test', { on: { click: this.bar, foo: null }})
+//   }
+// }).$mount('#app1')
+
+// Vue.config.errorHandler = function(err) {
+//   console.log('handle error', err.message);
+// }
+//
+// Vue.component('custom-button', {
+//   template: '<button @click="onClick">click me</button>',
+//   methods: {
+//     onClick(e) {
+//       console.log(2);
+//       this.$emit('foo');
+//     }
+//   }
+// });
+//
+// new Vue({
+//   el: '#app1',
+//   template: `<custom-button @foo="onFoo" />`,
+//   methods: {
+//     onFoo(e) {
+//       console.log(1);
+//       return Promise.reject(new Error('Error ' + Date.now()))
+//     },
+//   },
+// })
+
+new Vue({
+  template: `<div>{{a}} - {{b}}</div>`,
+  data: { a: 100 },
+  computed: {
+    b () {
+      return this.a + 1;
     }
-  },
-  created: spy1,
-  directives: {
-    c: {}
-  },
-  methods: {
-    a: function () {}
-  }
-})
-
-const mixinB = mixinA.extend({
-  el: '#app2',
-  data () {
-    return {
-      test2: 2
-    }
-  },
-  created: spy2
-})
-
-Vue.mixin({
-  el: '#app1',
-  data () {
-    return {
-      test1: 1
-    }
-  },
-  methods: {
-    a: function () {}
-  },
-})
-
-const vm = new Vue({
-  // el: '#app3',
-  // mixins: [mixinB],
-  data: {
-    test2: 2
-  },
-  methods: {
-    b: function () {}
   },
   created () {
-    console.log(this.$el);
-    console.log(this.test2);
-    console.log(this);
-    console.log(this.$options.methods);
+    setTimeout(()=>{
+      this.a = 200
+    }, 1000)
   }
-})
+}).$mount('#app1')
+
+// new Vue({
+//   data: { none: null },
+//   template: `<div @click=""></div>`
+// }).$mount('#app1')
 
 // Vue.component('test', {
 //   template: '<button v-on:click="onClick">{{a}}<slot></slot></button>',
+//   data () {
+//     return {
+//       test1: 5
+//     }
+//   },
 //   inject: ['a'],
 //   methods: {
 //     onClick () {
