@@ -665,14 +665,14 @@ function spy2 () {
 // })
 
 new Vue({
-  template: `<div>{{a}} - {{b}}</div>`,
+  template: `<div>{{a}} - </div>`,
   data: { a: 100 },
-  computed: {
-    b () {
-      let b = this.a + 1;
-      return b;
-    }
-  },
+  // computed: {
+  //   b () {
+  //     let b = this.a + 1;
+  //     return b;
+  //   }
+  // },
   created () {
     setTimeout(()=>{
       this.a = 200
