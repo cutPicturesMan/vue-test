@@ -664,21 +664,62 @@ function spy2 () {
 //   },
 // })
 
-new Vue({
-  template: `<div>{{a}} - {{b}}</div>`,
-  data: { a: 100 },
-  computed: {
-    b () {
-      let b = this.a + 1;
-      return b;
+function noop () {
+  console.log(2);
+}
+
+noop.a = 1;
+
+const vm = new Vue({
+  template: `<div>{{a}} - {{b}} - {{fn.a}}</div>`,
+  data: {
+      a: [{
+        b: {
+          c: 1
+        }
+      }],
+      b: 200,
+      fn: noop
+  },
+  // computed: {
+  //   b () {
+  //     let b = this.a + 1;
+  //     return b;
+  //   }
+  // },
+  watch: {
+    fn: {
+      deep: true,
+      handler (newVal, oldVal) {
+        console.log(1);
+      }
     }
   },
   created () {
     setTimeout(()=>{
-      this.a = 200
+      console.log(this);
+      this.a[0].b.c = 2;
+      this.fn.a = 200
     }, 1000)
   }
 }).$mount('#app1')
+
+vm.$watch(
+  'a',
+  // function () {
+  //       // 表达式 `this.a + this.b` 每次得出一个不同的结果时
+  //       // 处理函数都会被调用。
+  //       // 这就像监听一个未被定义的计算属性
+  //       return this.a
+  //   },
+    function (newVal, oldVal) {
+        // 做点什么
+        console.log(1);
+    },
+  {
+    deep: true,
+  }
+)
 
 // new Vue({
 //   data: { none: null },
