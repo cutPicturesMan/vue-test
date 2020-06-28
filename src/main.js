@@ -1,6 +1,11 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue";
+import { a } from './test.js';
+console.log(a);
+setTimeout(()=>{
+  console.log(a);
+}, 1200)
 // import router from './router'
 
 // Vue.config.productionTip = false
@@ -519,6 +524,7 @@ function spy1 () {
 function spy2 () {
   console.log(2);
 }
+
 //
 // const mixinA = Vue.extend({
 //   el: '#app1',
@@ -664,21 +670,64 @@ function spy2 () {
 //   },
 // })
 
-new Vue({
-  template: `<div>{{a}} - {{b}}</div>`,
-  data: { a: 100 },
-  computed: {
-    b () {
-      let b = this.a + 1;
-      return b;
+// console.log('script start');
+// setTimeout(function () {
+//   console.log('setTimeout');
+// }, 0);
+// Promise.resolve().then(function () {
+//   console.log('promise1');
+// }).then(function () {
+//   console.log('promise2');
+// });
+// console.log('script end');
+const calls = []
+const vm = new Vue({
+  data: {
+    a: 1
+  },
+  watch: {
+    a () {
+      calls.push(1)
     }
   },
-  created () {
-    setTimeout(()=>{
-      this.a = 200
-    }, 1000)
+  beforeUpdate () {
+    calls.push(2)
+  },
+  template: '<div><test :a="a"></test></div>',
+  components: {
+    test: {
+      props: ['a'],
+      template: '<div>{{ a }}</div>',
+      watch: {
+        a () {
+          calls.push(3)
+        }
+      },
+      beforeUpdate () {
+        calls.push(4)
+      }
+    }
   }
-}).$mount('#app1')
+}).$mount()
+vm.a = 2
+// Vue.config.async = true
+
+//
+// new Vue({
+//   template: `<div>{{a}} - {{b}}</div>`,
+//   data: { a: 100 },
+//   computed: {
+//     b () {
+//       let b = this.a + 1;
+//       return b;
+//     }
+//   },
+//   created () {
+//     setTimeout(() => {
+//       this.a = 200
+//     }, 1000)
+//   }
+// }).$mount('#app1')
 
 // new Vue({
 //   data: { none: null },
