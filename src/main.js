@@ -2,10 +2,31 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue";
 import { a } from './test.js';
-console.log(a);
-setTimeout(()=>{
-  console.log(a);
-}, 1200)
+
+const vm = new Vue({
+  data: {
+    a: 1
+  },
+  // template: '#div',
+  template: '<div>123</div>',
+  // template: '<div><test :a="a"></test></div>',
+  components: {
+    // test: {
+    //   props: ['a'],
+    //   template: '<div>{{ a }}</div>',
+    //   watch: {
+    //     a () {
+    //       calls.push(3)
+    //     }
+    //   },
+    //   beforeUpdate () {
+    //     calls.push(4)
+    //   }
+    // }
+  }
+}).$mount('')
+vm.a = 2
+
 // import router from './router'
 
 // Vue.config.productionTip = false
@@ -680,36 +701,36 @@ function spy2 () {
 //   console.log('promise2');
 // });
 // console.log('script end');
-const calls = []
-const vm = new Vue({
-  data: {
-    a: 1
-  },
-  watch: {
-    a () {
-      calls.push(1)
-    }
-  },
-  beforeUpdate () {
-    calls.push(2)
-  },
-  template: '<div><test :a="a"></test></div>',
-  components: {
-    test: {
-      props: ['a'],
-      template: '<div>{{ a }}</div>',
-      watch: {
-        a () {
-          calls.push(3)
-        }
-      },
-      beforeUpdate () {
-        calls.push(4)
-      }
-    }
-  }
-}).$mount()
-vm.a = 2
+// const calls = []
+// const vm = new Vue({
+//   data: {
+//     a: 1
+//   },
+//   watch: {
+//     a () {
+//       calls.push(1)
+//     }
+//   },
+//   beforeUpdate () {
+//     calls.push(2)
+//   },
+//   template: '<div><test :a="a"></test></div>',
+//   components: {
+//     test: {
+//       props: ['a'],
+//       template: '<div>{{ a }}</div>',
+//       watch: {
+//         a () {
+//           calls.push(3)
+//         }
+//       },
+//       beforeUpdate () {
+//         calls.push(4)
+//       }
+//     }
+//   }
+// }).$mount()
+// vm.a = 2
 // Vue.config.async = true
 
 //
