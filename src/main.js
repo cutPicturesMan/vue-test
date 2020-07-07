@@ -3,29 +3,56 @@
 import Vue from "vue";
 import { a } from './test.js';
 
+Vue.config.errorHandler = () => {
+  debugger
+}
 const vm = new Vue({
   data: {
-    a: 1
+    a: {
+      b: 123
+    }
   },
-  // template: '#div',
-  template: '<div>123</div>',
-  // template: '<div><test :a="a"></test></div>',
-  components: {
-    // test: {
-    //   props: ['a'],
-    //   template: '<div>{{ a }}</div>',
-    //   watch: {
-    //     a () {
-    //       calls.push(3)
-    //     }
-    //   },
-    //   beforeUpdate () {
-    //     calls.push(4)
-    //   }
-    // }
+  render (h) {
+    return h('div', [this.a.b])
   }
 }).$mount('')
-vm.a = 2
+}).$mount('#app1')// TODO el为空，到底有没有挂载到页面？？？
+console.log(vm.$el.textContent, '123');
+// vm.a = null
+// vm.$nextTick(()=>{
+//   vm.a = { b: 234 }
+//
+//   vm.$nextTick(()=> {
+//     console.log(vm.$el.textContent, '234');
+//     Vue.config.errorHandler = null
+//   })
+// })
+
+
+// const vm = new Vue({
+//   data: {
+//     a: 1
+//   },
+//   // template: '#div',
+//   template: '<div>123</div>',
+//   // template: '<div><test :a="a"></test></div>',
+//   components: {
+//     // test: {
+//     //   props: ['a'],
+//     //   template: '<div>{{ a }}</div>',
+//     //   watch: {
+//     //     a () {
+//     //       calls.push(3)
+//     //     }
+//     //   },
+//     //   beforeUpdate () {
+//     //     calls.push(4)
+//     //   }
+//     // }
+//   }
+// }).$mount('#app1')
+// vm.a = 2
+// console.log(vm.$el);
 
 // import router from './router'
 
