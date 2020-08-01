@@ -3,41 +3,761 @@
 import Vue from "vue";
 import { a } from './test.js';
 
-const calls = []
+Vue.config.errorHandler = () => {
+  debugger
+}
 const vm = new Vue({
   data: {
-    a: 1
-  },
-  watch: {
-    a () {
-      calls.push(1)
+    a: {
+      b: 123
     }
   },
-  beforeUpdate () {
-    calls.push(2)
-  },
-  // template: '<div><test :a="a"></test></div>',
-  template: '<div>{{a}}</div>',
-  // template: '#div',
-  // render () {
-  //   console.log(1);
-  // },
-  components: {
-    // test: {
-    //   props: ['a'],
-    //   template: '<div>{{ a }}</div>',
-    //   watch: {
-    //     a () {
-    //       calls.push(3)
-    //     }
-    //   },
-    //   beforeUpdate () {
-    //     calls.push(4)
-    //   }
-    // }
+  render (h) {
+    return h('div', [this.a.b])
   }
-}).$mount('#app1')
-vm.a = 2
+}).$mount('')
+}).$mount('#app1')// TODO el为空，到底有没有挂载到页面？？？
+console.log(vm.$el.textContent, '123');
+// vm.a = null
+// vm.$nextTick(()=>{
+//   vm.a = { b: 234 }
+//
+//   vm.$nextTick(()=> {
+//     console.log(vm.$el.textContent, '234');
+//     Vue.config.errorHandler = null
+//   })
+// })
+
+
+// const vm = new Vue({
+//   data: {
+//     a: 1
+//   },
+//   // template: '#div',
+//   template: '<div>123</div>',
+//   // template: '<div><test :a="a"></test></div>',
+//   components: {
+//     // test: {
+//     //   props: ['a'],
+//     //   template: '<div>{{ a }}</div>',
+//     //   watch: {
+//     //     a () {
+//     //       calls.push(3)
+//     //     }
+//     //   },
+//     //   beforeUpdate () {
+//     //     calls.push(4)
+//     //   }
+//     // }
+//   }
+// }).$mount('#app1')
+// vm.a = 2
+// console.log(vm.$el);
+
+// import router from './router'
+
+// Vue.config.productionTip = false
+//
+// var Profile = Vue.extend({
+//   template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>',
+// });
+// Vue.mixin({ data: function () {
+//   return {
+//     firstName: 'Walter',
+//     lastName: 'White',
+//     alias: 'Heisenberg'
+//   }
+// }});
+// new Profile().$mount('#app');
+
+// const Test = Vue.extend({
+//   name: 'z',
+//   template: '<div>你的名字：{{ firstName }},{{ bbb }}</div>',
+// 	filters: {
+// 		capitalize: function (value) {
+// 			if (!value) return ''
+// 			value = value.toString()
+// 			return value.charAt(0).toUpperCase() + value.slice(1)
+// 		}
+// 	},
+//   data: function () {
+//     return {
+//       firstName: 'Walter',
+//       lastName: 'White',
+//       alias: 'Heisenberg'
+//     }
+//   }
+// })
+//
+// Test.component('zzz', function(){
+//   console.log(this);
+//   debugger
+// });
+
+// Inject options later
+// vue-loader and vue-hot-reload-api are doing like this
+// Test.options.computed = {bbb: () => 123}
+//
+// const Test2 = Test.extend({
+// 	props: {
+// 		myName: {
+// 			type: String,
+// 			default: '测试'
+// 		}
+// 	}
+// })
+
+// Test2.component('bbb', {
+//   name: 'bbb',
+//   template: '<strong>{{name}}</strong>',
+//   data(){
+//     return {
+//       name: 123
+//     }
+//   }
+// });
+
+// Update super constructor's options
+// Vue.mixin({})
+
+// mount the component
+// const vm = new Test({
+//   template: '<div>{{ firstName }}</div>'
+// }).$mount('#app')
+
+// new Test2({
+// 	template: '<div>{{ myName }}<bbb></bbb></div>'
+// }).$mount('#app1')
+
+// new Vue({
+//   template: '<strong :key="true"><span :key="true">1</span><span :key="true">2</span></strong>',
+//   data: {
+//     key: {}
+//   }
+// }).$mount('#app1')
+
+// Vue.component('anchored-heading', {
+//   render: function (h) {
+//     return h(
+//       'h1',   // 标签名称
+//       this.$slots.default // 子节点数组
+//     )
+//   }
+// })
+
+// new Vue({
+//   render(h){
+//     debugger
+//     return h(
+//       'div', {
+//       scopedSlots: {
+//         default: props => h('span', 'span')
+//       }
+//     })
+//   }
+// }).$mount('#app2')
+
+// Vue.component('vtest', { template: ` <div>Hello World</div>` })
+// const vm = new Vue({
+//   render (h) {
+//     return h('vtest', {
+//       pre: true
+//     })
+//   },
+//   components: {
+//     test: {
+//       data () {
+//         return { msg: 'hello' }
+//       },
+//       render (h) {
+//         return h('span', [
+//           this.$scopedSlots.default({ msg: this.msg })
+//         ])
+//       }
+//     }
+//   }
+// }).$mount('#app2')
+
+// Vue.component('vtest', { template: ` <div>Hello World</div>` })
+// const vm = new Vue({
+//   template: '<div v-pre><vtest></vtest><bbb></bbb></div>',
+//   replace: true
+// })
+// vm.$mount('#app2')
+
+
+//
+// const data = {
+//   is: 'zz',
+//   bindClass: {
+//     width: 200
+//   },
+//   text: '全局text',
+//   arr: [{name: 'zz', value: '福建'}, {name: 'zz1', value: '福建1'}],
+//
+//   name: 1,
+//   obj: {
+//     // level1: {
+//     //   level2: {
+//     //     level3: 3
+//     //   }
+//     // }
+//   }
+// };
+//
+// let template = `
+//   <section>
+//     <vh-a :level="1">
+//       <template v-slot:header>
+//         <h1>头部</h1>
+//         <div>分割线</div>
+//       </template>
+//       <div>我是标题h1</div>
+//       <div>我是标题h2</div>
+//       <template v-slot:footer>
+//         <h1>尾部</h1>
+//         <div>分割线</div>
+//       </template>
+//     </vh-a>
+//     <div v-pre>
+//       <v-input></v-input>
+//     </div>
+//     <App></App>
+//   </section>
+// `
+//
+// var getChildrenTextContent = function (children) {
+//   return children.map(function (node) {
+//     return node.children
+//       ? getChildrenTextContent(node.children)
+//       : node.text
+//   }).join('')
+// }
+//
+// Vue.component('vh-a', {
+//   props: {
+//     level: {
+//       type: Number,
+//       required: true
+//     }
+//   },
+//   data: () => ({ a: 1234 }),
+//   render(h){
+//     // 创建 kebab-case 风格的 ID
+//     var headingId = getChildrenTextContent(this.$slots.default)
+//       .toLowerCase()
+//       .replace(/\W+/g, '-')
+//       .replace(/(^-|-$)/g, '')
+//
+//     return h(
+//       'h' + this.level,
+//       [
+//         h('a', false, this.$slots.default, 1),
+//         h('component', {
+//           is: 'zz',
+//           name: 'bb'
+//         })
+//       ]
+//     )
+//
+//     // var myParagraphVNode = h('p', 'hi')
+//     // return h('div', [
+//     //   // 错误 - 重复的 VNode
+//     //   myParagraphVNode, myParagraphVNode
+//     // ])
+//   }
+// })
+//
+// /* eslint-disable no-new */
+// let vm = new Vue({
+//   el: '#app',
+//   // router,
+//   // data: {
+//   //   cartNum1: 5,
+//   //   cartNum2: 3,
+//   //   cartNum3: 4,
+//   //   title: '测试标题',
+//   //   info: {
+//   //     user: 'zz',
+//   //     address: {
+//   //       province: 'xx省',
+//   //       city: 'xx市',
+//   //       county: 'xx县'
+//   //     }
+//   //   },
+//   // },
+//   // watch: {
+//   //   cartNum1(){
+//   //     console.log(1);
+//   //   }
+//   // },
+// //   <slot>123</slot>
+// //   <div v-text="text"></div>
+// //   <div>hello world</div>
+// // <div v-for="(item, index) in arr">
+// //   <p>{{item.name}}</p>
+// // <p>{{item.value}}</p>
+// // <p>{{index}}</p>
+// // <p>---</p>
+// // </div>
+// //   <div><p v-if="text == 1">hello world</p><p v-else-if="123">hello world2</p><div v-else><p><span>foo bar</span></p></div></div>
+//   data,
+//   components: { App },
+//   template,
+//   // template: `test<123>`,
+//   // template: `
+//   // <div class="d">
+//   //   <div v-for="(item, index) in arr">
+//   //     <p>{{item.name}}</p>
+//   //     <p>{{item.value}}</p>
+//   //     <p>{{index}}</p>
+//   //     <p>---</p>
+//   //   </div>
+//   //   text
+//   //   <strong>a1</strong>
+//   //   <strong>a2</strong>
+//   // </div>
+//   // `,
+//   mounted(){
+//     this.$on('aB', (res)=>{
+//       console.log(1)
+//     })
+//     this.$on('aB', (res)=>{
+//       console.log(2)
+//     })
+//
+//
+//     setTimeout(()=>{
+//       // this.obj.arr[0].name = 2;
+//       // this.obj.arr.push({name: 2});
+//       // this.$set(this.obj.arr[0], 'age', 26);
+//       this.$emit('aB', 1, 2)
+//     }, 1000)
+//   }
+// })
+
+// new Vue({
+//     template: `<div><test/></div>`,
+//     components: {
+//         test: () => ({
+//             component: new Promise(resolve => {
+//                 setTimeout(() => {
+//                     resolve({ template: '<div>hi</div>' })
+//                 }, 50)
+//             }),
+//             loading: { template: `<div>loading</div>` },
+//             delay: 0
+//         })
+//     }
+// }).$mount('#app')
+
+// new Vue({
+//     template: `<div><test/></div>`,
+//     components: {
+//         test: () => ({
+//             component: new Promise((resolve, reject) => {
+//                 console.log(123);
+//                 setTimeout(() => {
+//                   debugger
+//                   resolve()
+//                     // wait for promise resolve and then parent update
+//                     Promise.resolve().then(() => {
+//                         // Vue.nextTick(next)
+//                     })
+//                 }, 5000)
+//             }),
+//             loading: { template: `<div>loading</div>` },
+//             error: { template: `<div>error</div>` },
+//             delay: 100
+//         })
+//     }
+// }).$mount('#app')
+
+// new Vue({
+//   data: {
+//     ok: true,
+//     arr: [{name: 'zz', k: Symbol('z')}, {name: 'bb', k: Symbol('b')}],
+//     obj: {
+//       name: 'zz'
+//     }
+//   },
+//   template: `
+//         <div id="tpl">
+//           <div :id="'item' + item.name" v-for="item in arr" :key="item.k">{{item.name}}</div>
+//         </div>
+//       `,
+//   mounted(){
+//     setTimeout(()=>{
+//       debugger
+//       this.ok = false;
+//     }, 1000)
+//   }
+// }).$mount('#app1')
+
+// new Vue({
+//   template: `
+//     <test :t="text" length="1">
+//       {{text}}
+//       <template v-slot="p">
+//         <div>{{p.obj.text}}</div>
+//       </template>
+//     </test>
+//   `,
+//   props: {
+//     a: {
+//       type: Number,
+//       default: 123
+//     }
+//   },
+//   data: {
+//     text: '1'
+//   },
+//   components: {
+//     test: {
+//       props: {
+//         t: {
+//           type: [String, Number],
+//           default: 2
+//         }
+//       },
+//       data(){
+//         return {
+//           obj: {
+//             text: '文字'
+//           }
+//         }
+//       },
+//       template: `
+//         <div><slot :obj="obj"></slot></div>
+//       `,
+//     }
+//   },
+//   mounted(){
+//     setTimeout(()=>{
+//       this.text = 2
+//     }, 1000)
+//   }
+// }).$mount('#app1')
+
+// new Vue({
+//   template: `<fb>
+//     <template v-slot:foo>
+//       first
+//     </template>
+//     <p>second</p>
+//   </fb>`,
+//   data: {
+//     title: 'test'
+//   },
+//   components: {
+//     'fb': {
+//       functional: true,
+//       render(createElement, ctx) {
+//         console.log(ctx.slots());
+//         debugger
+//         return createElement('button', ctx.children)
+//       }
+//     }
+//   }
+// }).$mount('#app1')
+
+// const vm = new Vue({
+//   template: `
+//          <svg>
+//            <test></test>
+//          </svg>
+//        `,
+//   components: {
+//     test: {
+//       template: `
+//            <foreignObject>
+//              <p xmlns="http://www.w3.org/1999/xhtml"></p>
+//            </foreignObject>
+//            `
+//     }
+//   }
+// }).$mount('#app1')
+
+// let one = {
+//   template: '<div>one</div>',
+//   created: () => {
+//     console.log('one created')
+//   },
+//   mounted: () => {
+//     console.log('one mounted')
+//   },
+//   activated: () => {
+//     console.log('one activated')
+//   },
+//   deactivated: () => {
+//     console.log('one deactivated')
+//   },
+//   destroyed: () => {
+//     console.log('one destroyed')
+//   }
+// }
+// let two = {
+//   template: '<div>two</div>',
+//   created: () => {
+//     console.log('two created')
+//   },
+//   mounted: () => {
+//     console.log('two mounted')
+//   },
+//   activated: () => {
+//     console.log('two activated')
+//   },
+//   deactivated: () => {
+//     console.log('two deactivated')
+//   },
+//   destroyed: () => {
+//     console.log('two destroyed')
+//   }
+// }
+//
+//
+// one.template = '<div><two/><two/><span>123</span></div>'
+// one.components = {two}
+//
+// const vm = new Vue({
+//   template: `
+//         <div>
+//           <keep-alive>
+//             <one v-if="ok"/>
+//             2
+//           </keep-alive>
+//         </div>
+//       `,
+//   data: {
+//     ok: true
+//   },
+//   components: {
+//     one,
+//   }
+// }).$mount('#app1')
+//
+// setTimeout(() => {
+//   vm.ok = false
+//   setTimeout(() => {
+//     vm.ok = true
+//   }, 1000)
+// }, 1000)
+
+// const child = {
+//   template: `
+//         <div>
+//           <div class="default"><slot></slot></div>
+//           <div class="named"><slot name="foo"></slot></div>
+//         </div>
+//       `
+// }
+//
+// const vm = new Vue({
+//   template: '<test><span slot="foo"> </span><span> </span></test>',
+//   components: {
+//     test: {
+//       render (h, ctx) {
+//         const slots = ctx.slots()
+//         debugger
+//         return h(child, slots.foo)
+//       }
+//     }
+//   }
+// }).$mount('#app1')
+
+function spy1 () {
+  console.log(1);
+}
+
+function spy2 () {
+  console.log(2);
+}
+
+//
+// const mixinA = Vue.extend({
+//   el: '#app1',
+//   data () {
+//     return {
+//       test1: 1
+//     }
+//   },
+//   created: spy1,
+//   directives: {
+//     c: {}
+//   },
+//   methods: {
+//     a: function () {}
+//   }
+// })
+//
+// const mixinB = mixinA.extend({
+//   el: '#app2',
+//   data () {
+//     return {
+//       test2: 2
+//     }
+//   },
+//   created: spy2
+// })
+//
+
+// Vue.mixin({
+//   el: '#app1',
+//   data () {
+//     return {
+//       test1: 3
+//     }
+//   },
+//   methods: {
+//     a: function () {}
+//   },
+//   created: spy1,
+// })
+//
+// Vue.mixin({
+//   el: '#app1',
+//   data () {
+//     return {
+//       test1: 3
+//     }
+//   },
+//   watch: {
+//     test1: {
+//       handler() {
+//         console.log('mixin-watch-test1');
+//       }
+//     }
+//   },
+//   methods: {
+//     a: function () {}
+//   },
+//   created: spy1,
+// })
+//
+// const vm = new Vue({
+//   // el: '#app3',
+//   // mixins: [{
+//   //   data: {
+//   //     test2: 6
+//   //   },
+//   // }],
+//   data: {
+//     test2: 4
+//   },
+//   watch: {
+//     test1 () {
+//       console.log('new-watch-test1');
+//     }
+//   },
+//   methods: {
+//     b: function () {}
+//   },
+//   created () {
+//     console.log(111);
+//   }
+//   // created () {
+//   //   console.log(this.$el);
+//   //   console.log(this.test2);
+//   //   console.log(this);
+//   //   console.log(this.$options.methods);
+//   // }
+// })
+
+// function spy1 () {
+//
+//   console.log(1);
+// }
+//
+// function spy2 () {
+//   console.log(2);
+// }
+//
+// new Vue({
+//   methods: { foo: spy1, bar: spy2 },
+//   data: {
+//     ok: true
+//   },
+//   components: {
+//     test: {
+//       template: '<div></div>'
+//     }
+//   },
+//   render (h) {
+//     setTimeout(()=>{
+//       this.ok = false
+//     }, 1000)
+//
+//     return this.ok
+//       ? h('test', { on: { click: this.foo }})
+//       : h('test', { on: { click: this.bar, foo: null }})
+//   }
+// }).$mount('#app1')
+
+// Vue.config.errorHandler = function(err) {
+//   console.log('handle error', err.message);
+// }
+//
+// Vue.component('custom-button', {
+//   template: '<button @click="onClick">click me</button>',
+//   methods: {
+//     onClick(e) {
+//       console.log(2);
+//       this.$emit('foo');
+//     }
+//   }
+// });
+//
+// new Vue({
+//   el: '#app1',
+//   template: `<custom-button @foo="onFoo" />`,
+//   methods: {
+//     onFoo(e) {
+//       console.log(1);
+//       return Promise.reject(new Error('Error ' + Date.now()))
+//     },
+//   },
+// })
+
+// console.log('script start');
+// setTimeout(function () {
+//   console.log('setTimeout');
+// }, 0);
+// Promise.resolve().then(function () {
+//   console.log('promise1');
+// }).then(function () {
+//   console.log('promise2');
+// });
+// console.log('script end');
+// const calls = []
+// const vm = new Vue({
+//   data: {
+//     a: 1
+//   },
+//   watch: {
+//     a () {
+//       calls.push(1)
+//     }
+//   },
+//   beforeUpdate () {
+//     calls.push(2)
+//   },
+//   template: '<div><test :a="a"></test></div>',
+//   components: {
+//     test: {
+//       props: ['a'],
+//       template: '<div>{{ a }}</div>',
+//       watch: {
+//         a () {
+//           calls.push(3)
+//         }
+//       },
+//       beforeUpdate () {
+//         calls.push(4)
+//       }
+//     }
+//   }
+// }).$mount()
+// vm.a = 2
 // Vue.config.async = true
 
 //
