@@ -6,18 +6,55 @@ import { a } from './test.js';
 Vue.config.errorHandler = () => {
   debugger
 }
-const vm = new Vue({
-  data: {
-    a: {
-      b: 123
-    }
-  },
+// const vm = new Vue({
+//   data: {
+//     a: {
+//       b: 123
+//     }
+//   },
+//   render (h) {
+//     return h('div', [this.a.b])
+//   }
+// }).$mount('')
+// // }).$mount('#app1')// TODO el为空，到底有没有挂载到页面？？？
+// console.log(vm.$el.textContent, '123');
+
+
+
+// const vm = new Vue({
+//     template: `
+//         <foo ref="foo">
+//           <div>slot</div>
+//         </foo>
+//       `,
+//     components: {
+//         foo: {
+//             data () {
+//                 return { ok: true }
+//             },
+//             render (h) {
+//                 const children = [
+//                     this.ok ? h('div', 'toggler ') : null,
+//                     h('div', [this.$slots.default, h('span', ' 1')]),
+//                     h('div', [h('label', ' 2')])
+//                 ]
+//                 return h('div', children)
+//             }
+//         }
+//     }
+// }).$mount('#app1')
+//
+// console.log(vm.$createElement('p', {}, '123'));
+// console.log(vm._e());
+
+
+new Vue({
   render (h) {
-    return h('div', [this.a.b])
+    return h('div', { key: Symbol('symbol') })
   }
-}).$mount('')
-}).$mount('#app1')// TODO el为空，到底有没有挂载到页面？？？
-console.log(vm.$el.textContent, '123');
+}).$mount('#app1')
+
+
 // vm.a = null
 // vm.$nextTick(()=>{
 //   vm.a = { b: 234 }
