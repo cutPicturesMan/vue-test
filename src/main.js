@@ -23,29 +23,39 @@ Vue.config.errorHandler = () => {
 
 
 
-const vm = new Vue({
-    template: `
-        <foo ref="foo">
-          <div>slot</div>
-        </foo>
-      `,
-    components: {
-        foo: {
-            data () {
-                return { ok: true }
-            },
-            render (h) {
-                const children = [
-                    this.ok ? h('div', 'toggler ') : null,
-                    h('div', [this.$slots.default, h('span', ' 1')]),
-                    h('div', [h('label', ' 2')])
-                ]
-                return h('div', children)
-            }
-        }
-    }
-}).$mount('#app1')
-//
+// const vm = new Vue({
+//     template: `
+//         <foo ref="foo">
+//           <symbol>1</symbol>
+//           <div>slot</div>
+//           <glyph>slot</glyph>
+//         </foo>
+//       `,
+//     components: {
+//         foo: {
+//             data () {
+//                 return { ok: true }
+//             },
+//             render (h) {
+//                 const children = [
+//                     this.ok ? h('div', 'toggler ') : null,
+//                     h('div', [this.$slots.default, h('span', ' 1')]),
+//                     h('div', [h('label', ' 2')])
+//                 ]
+//                 return h('div', children)
+//             }
+//         }
+//     }
+// }).$mount('#app1')
+// //
+
+Vue.component('fo', {
+  template: '#fo'
+});
+
+new Vue({
+  el: '#svg'
+});
 
 // // toggler slot 1 2
 // console.log(vm.$el.textContent);
@@ -70,11 +80,11 @@ const vm = new Vue({
 // console.log(vm._e());
 
 
-new Vue({
-  render (h) {
-    return h('div', { key: Symbol('symbol') })
-  }
-}).$mount('#app1')
+// new Vue({
+//   render (h) {
+//     return h('div', { key: Symbol('symbol') })
+//   }
+// }).$mount('#app1')
 
 
 // vm.a = null
