@@ -49,13 +49,17 @@ Vue.config.errorHandler = () => {
 // }).$mount('#app1')
 // //
 
-Vue.component('fo', {
-  template: '#fo'
-});
 
-new Vue({
-  el: '#svg'
-});
+const vm = new Vue({})
+const h = vm.$createElement
+const vnode = h('svg', [h('foreignObject', [h('p')])])
+// 'svg'
+console.log(vnode.ns);
+// 'svg'
+console.log(vnode.children[0].ns);
+// undefined
+console.log(vnode.children[0].children[0].ns);
+
 
 // // toggler slot 1 2
 // console.log(vm.$el.textContent);
