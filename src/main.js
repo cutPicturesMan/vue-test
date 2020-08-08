@@ -50,17 +50,101 @@ Vue.config.errorHandler = () => {
 // //
 
 
-const vm = new Vue({})
-const h = vm.$createElement
-const vnode = h('svg', [h('foreignObject', [h('p')])])
-// 'svg'
-console.log(vnode.ns);
-// 'svg'
-console.log(vnode.children[0].ns);
-// undefined
-console.log(vnode.children[0].children[0].ns);
+// const vm = new Vue({})
+// const h = vm.$createElement
+// const vnode = h('svg', [h('foreignObject', [h('p')])])
+// // 'svg'
+// console.log(vnode.ns);
+// // 'svg'
+// console.log(vnode.children[0].ns);
+// // undefined
+// console.log(vnode.children[0].children[0].ns);
+
+// const vm = new Vue({
+//   data: {
+//     t: 1
+//   },
+//   template: `
+// <div>
+// <div>{{t}}</div>
+//         <svg>
+//           <test></test>
+//         </svg>
+// </div>
+//
+//       `,
+//   components: {
+//     test: {
+//       template: `
+//           <foreignObject>
+//             <svg>123</svg>
+//             <p>111</p>
+//           </foreignObject>
+//           `
+//     }
+//   }
+// }).$mount('#app1')
+
+const vm = new Vue({
+  data: {
+    t: 1
+  },
+  template: `
+    <div><foo></foo></div>
+  `,
+  components: {
+    foo: {
+      data () {
+        return {
+          a: 1,
+          b: 2
+        }
+      },
+      template: `
+          <div>
+      <math>
+        <mrow>
+          <mrow>
+            <msup>
+              <mi>a</mi>
+              <mn>{{a}}</mn>
+            </msup>
+            <mo>+</mo>
+            <msup>
+              <mi>b</mi>
+              <mn>{{b}}</mn>
+            </msup>
+          </mrow>
+          <mo>=</mo>
+          <msup>
+            <mi>c</mi>
+            <mn>2</mn>
+          </msup>
+        </mrow>
+      </math>
+        <polygon points="5,5 195,10 185,185 10,195" />
+      
+        <!-- Common use case: embed HTML text into SVG -->
+        <foreignObject x="20" y="20" width="160" height="160">
+          <!--
+            In the context of SVG embeded into HTML, the XHTML namespace could
+            be avoided, but it is mandatory in the context of an SVG document
+          -->
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Sed mollis mollis mi ut ultricies. Nullam magna ipsum,
+            porta vel dui convallis, rutrum imperdiet eros. Aliquam
+            erat volutpat.
+          </div>
+        </foreignObject>
+    </div>
+    `
+    }
+  }
+}).$mount('#app1')
 
 
+console.log(vm);
 // // toggler slot 1 2
 // console.log(vm.$el.textContent);
 // vm.$refs.foo.ok = false
