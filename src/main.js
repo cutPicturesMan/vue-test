@@ -20,7 +20,21 @@ Vue.config.errorHandler = () => {
 // console.log(vm.$el.textContent, '123');
 
 
+new Vue({
+  template: '<strong>{{is}}</strong>',
+  data: {
+    is: 'ccc'
+  }
+}).$mount('#app1')
 
+new Vue({
+  render(h){
+    return h(
+      'div', {
+        is: 'abc'
+      })
+  }
+}).$mount('#app2')
 
 
 // const vm = new Vue({
@@ -85,66 +99,66 @@ Vue.config.errorHandler = () => {
 //   }
 // }).$mount('#app1')
 
-const vm = new Vue({
-  data: {
-    t: 1
-  },
-  template: `
-    <div><foo></foo></div>
-  `,
-  components: {
-    foo: {
-      data () {
-        return {
-          a: 1,
-          b: 2
-        }
-      },
-      template: `
-          <div>
-      <math>
-        <mrow>
-          <mrow>
-            <msup>
-              <mi>a</mi>
-              <mn>{{a}}</mn>
-            </msup>
-            <mo>+</mo>
-            <msup>
-              <mi>b</mi>
-              <mn>{{b}}</mn>
-            </msup>
-          </mrow>
-          <mo>=</mo>
-          <msup>
-            <mi>c</mi>
-            <mn>2</mn>
-          </msup>
-        </mrow>
-      </math>
-        <polygon points="5,5 195,10 185,185 10,195" />
-      
-        <!-- Common use case: embed HTML text into SVG -->
-        <foreignObject x="20" y="20" width="160" height="160">
-          <!--
-            In the context of SVG embeded into HTML, the XHTML namespace could
-            be avoided, but it is mandatory in the context of an SVG document
-          -->
-          <div xmlns="http://www.w3.org/1999/xhtml">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed mollis mollis mi ut ultricies. Nullam magna ipsum,
-            porta vel dui convallis, rutrum imperdiet eros. Aliquam
-            erat volutpat.
-          </div>
-        </foreignObject>
-    </div>
-    `
-    }
-  }
-}).$mount('#app1')
-
-
-console.log(vm);
+// const vm = new Vue({
+//   data: {
+//     t: 1
+//   },
+//   template: `
+//     <div><foo></foo></div>
+//   `,
+//   components: {
+//     foo: {
+//       data () {
+//         return {
+//           a: 1,
+//           b: 2
+//         }
+//       },
+//       template: `
+//           <div>
+//       <math>
+//         <mrow>
+//           <mrow>
+//             <msup>
+//               <mi>a</mi>
+//               <mn>{{a}}</mn>
+//             </msup>
+//             <mo>+</mo>
+//             <msup>
+//               <mi>b</mi>
+//               <mn>{{b}}</mn>
+//             </msup>
+//           </mrow>
+//           <mo>=</mo>
+//           <msup>
+//             <mi>c</mi>
+//             <mn>2</mn>
+//           </msup>
+//         </mrow>
+//       </math>
+//         <polygon points="5,5 195,10 185,185 10,195" />
+//
+//         <!-- Common use case: embed HTML text into SVG -->
+//         <foreignObject x="20" y="20" width="160" height="160">
+//           <!--
+//             In the context of SVG embeded into HTML, the XHTML namespace could
+//             be avoided, but it is mandatory in the context of an SVG document
+//           -->
+//           <div xmlns="http://www.w3.org/1999/xhtml">
+//             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+//             Sed mollis mollis mi ut ultricies. Nullam magna ipsum,
+//             porta vel dui convallis, rutrum imperdiet eros. Aliquam
+//             erat volutpat.
+//           </div>
+//         </foreignObject>
+//     </div>
+//     `
+//     }
+//   }
+// }).$mount('#app1')
+//
+//
+// console.log(vm);
 // // toggler slot 1 2
 // console.log(vm.$el.textContent);
 // vm.$refs.foo.ok = false
