@@ -47,53 +47,54 @@ Vue.config.errorHandler = () => {
 //   console.log(vm.$el.value);
 // }, 0)
 
-
-// const vm = new Vue({
-//   data: {
-//     message: 'Hello Vue.js!',
-//     show: true ,
-//     btnValue1: 'button 1',
-//     btnValue2: 'button 2'
-//   },
-//   template: `
-//     <div>
-//   <p>{{ message }}</p>
-//   <input type="button" @click="show=!show" value="Toggle">（Switch multiple times to see the results）
-//   <p>===========scene one=============</p>
-//  <input v-if="show" type="button" value="button 1">
-//   <input v-else type="button" :value="btnValue2">
-//   <p>===========scene two=============</p>
-//  <input v-if="show" type="button" value="button 1">
-//  <input v-else type="button" value="button 2">
-//  <p>===========scene tree=============</p>
-//  <input v-if="show" type="button" :value="btnValue1">
-//  <input v-else type="button" :value="btnValue2">
-//     </div>
-//   `
-// }).$mount('#app1')
-
-
+console.log(document.createElement('div'));
 const vm = new Vue({
-  data: { ok: true },
+  data: {
+    message: 'Hello Vue.js!',
+    show: true ,
+    btnValue1: 'button 1',
+    btnValue2: 'button 2'
+  },
+  methods: {
+    show1 () {
+      this.show=!this.show;
+      const children = this._vnode.children;
+      console.log(children[children.length-1].data);
+    }
+  },
   template: `
     <div>
-      <input type="button" v-if="ok" value="a">
-      <input type="button" :value="'b'">
+      <p>{{ message }}</p>
+      <input type="button" @click="show1" value="Toggle">（Switch multiple times to see the results）
+      <p>===========scene one=============</p>
+      <input v-if="show" type="text" :value="btnValue1" data-ttt="1">
+      <input v-else type="text" :value="btnValue2" data-ttt="2">
     </div>
   `
 }).$mount('#app1')
-// .toBe('a')
-console.log(vm.$el.children[0].value)
-vm.ok = false
-setTimeout(()=>{
-  // .toBe('b')
-  console.log(vm.$el.children[0].value)
-  vm.ok = true
-  setTimeout(()=>{
-    // a
-    console.log(vm.$el.children[0].value)
-  }, 0)
-}, 0)
+
+
+// const vm = new Vue({
+//   data: { ok: true },
+//   template: `
+//     <div>
+//       <input type="button" v-if="ok" value="a">
+//       <input type="button" :value="'b'">
+//     </div>
+//   `
+// }).$mount('#app1')
+// // .toBe('a')
+// console.log(vm.$el.children[0].value)
+// vm.ok = false
+// setTimeout(()=>{
+//   // .toBe('b')
+//   console.log(vm.$el.children[0].value)
+//   vm.ok = true
+//   setTimeout(()=>{
+//     // a
+//     console.log(vm.$el.children[0].value)
+//   }, 0)
+// }, 0)
 
 
 
