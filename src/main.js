@@ -19,22 +19,125 @@ Vue.config.errorHandler = () => {
 // // }).$mount('#app1')// TODO el为空，到底有没有挂载到页面？？？
 // console.log(vm.$el.textContent, '123');
 
+// const vm = new Vue({
+//   template: '<input v-bind="test" id="foo" :class="test.value" class="z">',
+//   data: {
+//     test: {
+//       id: 'test',
+//       class: 'ok',
+//       value: 'hello'
+//     }
+//   }
+// }).$mount('#app1')
+//
+// // 'foo'
+// console.log(vm.$el.getAttribute('id'));
+// // 'hello'
+// console.log(vm.$el.getAttribute('class'));
+// // 'hello'
+// console.log(vm.$el.value);
+// vm.test.id = 'hi'
+// vm.test.value = 'bye'
+// setTimeout(()=>{
+//   // 'foo'
+//   console.log(vm.$el.getAttribute('id'));
+//   // 'bye'
+//   console.log(vm.$el.getAttribute('class'));
+//   // 'bye'
+//   console.log(vm.$el.value);
+// }, 0)
 
-new Vue({
-  template: '<strong>{{is}}</strong>',
-  data: {
-    is: 'ccc'
-  }
+
+// const vm = new Vue({
+//   data: {
+//     message: 'Hello Vue.js!',
+//     show: true ,
+//     btnValue1: 'button 1',
+//     btnValue2: 'button 2'
+//   },
+//   template: `
+//     <div>
+//   <p>{{ message }}</p>
+//   <input type="button" @click="show=!show" value="Toggle">（Switch multiple times to see the results）
+//   <p>===========scene one=============</p>
+//  <input v-if="show" type="button" value="button 1">
+//   <input v-else type="button" :value="btnValue2">
+//   <p>===========scene two=============</p>
+//  <input v-if="show" type="button" value="button 1">
+//  <input v-else type="button" value="button 2">
+//  <p>===========scene tree=============</p>
+//  <input v-if="show" type="button" :value="btnValue1">
+//  <input v-else type="button" :value="btnValue2">
+//     </div>
+//   `
+// }).$mount('#app1')
+
+
+const vm = new Vue({
+  data: { ok: true },
+  template: `
+    <div>
+      <input type="button" v-if="ok" value="a">
+      <input type="button" :value="'b'">
+    </div>
+  `
 }).$mount('#app1')
+// .toBe('a')
+console.log(vm.$el.children[0].value)
+vm.ok = false
+setTimeout(()=>{
+  // .toBe('b')
+  console.log(vm.$el.children[0].value)
+  vm.ok = true
+  setTimeout(()=>{
+    // a
+    console.log(vm.$el.children[0].value)
+  }, 0)
+}, 0)
 
-new Vue({
-  render(h){
-    return h(
-      'div', {
-        is: 'abc'
-      })
-  }
-}).$mount('#app2')
+
+
+
+
+//
+// new Vue({
+//   template: `
+//     <div>
+//       <div :data-name="key">111</div>
+//       <transition-group tag="div" name="trs-test">
+//         <div v-for="(path, idx) in pathes" v-bind="{ 'key': path.key }" v-text="'fails: ' + path.key"></div>
+//       </transition-group>
+//     </div>
+//   `,
+//   data: {
+//     key: 1,
+//     pathes: [
+//       { key: "a" },
+//       { key: "b" },
+//       { key: "c" }
+//     ]
+//   },
+//   components: {
+//     foo: {
+//       props: {
+//         key: String
+//       },
+//       data () {
+//         return {ok: true}
+//       },
+//       template: `<div>{{key}}</div>`,
+//     }
+//   }
+// }).$mount('#app1')
+//
+// new Vue({
+//   render(h){
+//     return h(
+//       'div', {
+//         is: 'abc'
+//       })
+//   }
+// }).$mount('#app2')
 
 
 // const vm = new Vue({
