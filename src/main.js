@@ -48,52 +48,80 @@ Vue.config.errorHandler = () => {
 // }, 0)
 
 
-// const vm = new Vue({
-//   data: {
-//     message: 'Hello Vue.js!',
-//     show: true ,
-//     btnValue1: 'button 1',
-//     btnValue2: 'button 2'
-//   },
-//   template: `
-//     <div>
-//   <p>{{ message }}</p>
-//   <input type="button" @click="show=!show" value="Toggle">（Switch multiple times to see the results）
-//   <p>===========scene one=============</p>
-//  <input v-if="show" type="button" value="button 1">
-//   <input v-else type="button" :value="btnValue2">
-//   <p>===========scene two=============</p>
-//  <input v-if="show" type="button" value="button 1">
-//  <input v-else type="button" value="button 2">
-//  <p>===========scene tree=============</p>
-//  <input v-if="show" type="button" :value="btnValue1">
-//  <input v-else type="button" :value="btnValue2">
-//     </div>
-//   `
-// }).$mount('#app1')
-
-
 const vm = new Vue({
-  data: { ok: true },
+  data: {
+    message: 'Hello Vue.js!',
+    show: true ,
+    btnValue1: 'button 1',
+    btnValue2: 'button 2'
+  },
   template: `
     <div>
-      <input type="button" v-if="ok" value="a">
-      <input type="button" :value="'b'">
+      <p>{{ message }}</p>
+      <input type="button" @click="show=!show" value="Toggle">（Switch multiple times to see the results）
+      <p>===========scene one=============</p>
+      <input v-if="show" type="button" value="button 1">
+      <input v-else type="button" :value="btnValue2">
     </div>
   `
 }).$mount('#app1')
-// .toBe('a')
-console.log(vm.$el.children[0].value)
-vm.ok = false
-setTimeout(()=>{
-  // .toBe('b')
-  console.log(vm.$el.children[0].value)
-  vm.ok = true
-  setTimeout(()=>{
-    // a
-    console.log(vm.$el.children[0].value)
-  }, 0)
-}, 0)
+
+
+// const vm = new Vue({
+//   data: { ok: true },
+//   template: `
+//     <div>
+//       <input type="button" v-if="ok" value="a">
+//       <input type="button" :value="'b'">
+//     </div>
+//   `
+// }).$mount('#app1')
+// // .toBe('a')
+// console.log(vm.$el.children[0].value)
+// vm.ok = false
+// setTimeout(()=>{
+//   // .toBe('b')
+//   console.log(vm.$el.children[0].value)
+//   vm.ok = true
+//   setTimeout(()=>{
+//     // a
+//     console.log(vm.$el.children[0].value)
+//   }, 0)
+// }, 0)
+
+
+// const vm = new Vue({
+//   data: {
+//     attr: {
+//       name: 'zz'
+//     }
+//   },
+//   template: `
+//     <div>
+//     {{attr.name}}
+//       <input class="zz" type="text" value="123" id="input">
+//       <div v-bind:name.prop="attr.name">123</div>
+//       <foo :prop="attr"></foo>
+//     </div>
+//   `,
+//   components: {
+//     foo: {
+//       template: `<div>{{name}}</div>`,
+//       props: {
+//         name: {
+//           type: String
+//         }
+//       }
+//     },
+//   },
+//   mounted () {
+//     setTimeout(() => {
+//       this.attr.name = 'bb';
+//     }, 1000)
+//     console.log(document.querySelector('#input').className);
+//     console.log(document.querySelector('#input').class);
+//   }
+// }).$mount('#app1')
 
 
 
