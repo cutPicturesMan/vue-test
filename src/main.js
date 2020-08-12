@@ -47,31 +47,54 @@ Vue.config.errorHandler = () => {
 //   console.log(vm.$el.value);
 // }, 0)
 
-console.log(document.createElement('div'));
+
+// console.log(document.createElement('div'));
+// const vm = new Vue({
+//   data: {
+//     message: 'Hello Vue.js!',
+//     show: true ,
+//     btnValue1: 'button 1',
+//     btnValue2: 'button 2'
+//   },
+//   methods: {
+//     show1 () {
+//       this.show=!this.show;
+//       this.$nextTick().then(()=>{
+//         const children = this._vnode.children;
+//         console.log(children[children.length-1].data);
+//       })
+//     }
+//   },
+//   template: `
+//     <div>
+//       <p>{{ message }}</p>
+//       <input type="button" @click="show1" value="Toggle">（Switch multiple times to see the results）
+//       <p>===========scene one=============</p>
+//       <input v-if="show" type="button" value="btnValue1" data-ttt="1">
+//       <input v-else type="button" :value="btnValue2" data-ttt="2">
+//     </div>
+//   `
+// }).$mount('#app1')
+
+
 const vm = new Vue({
-  data: {
-    message: 'Hello Vue.js!',
-    show: true ,
-    btnValue1: 'button 1',
-    btnValue2: 'button 2'
-  },
-  methods: {
-    show1 () {
-      this.show=!this.show;
-      const children = this._vnode.children;
-      console.log(children[children.length-1].data);
+  template: `<test v-bind="test" data-foo="foo" dataBar="bar"/>`,
+  components: {
+    test: {
+      template: '<div>{{ dataFoo }} {{ dataBar }}</div>',
+      props: ['dataFoo', 'dataBar']
     }
   },
-  template: `
-    <div>
-      <p>{{ message }}</p>
-      <input type="button" @click="show1" value="Toggle">（Switch multiple times to see the results）
-      <p>===========scene one=============</p>
-      <input v-if="show" type="text" :value="btnValue1" data-ttt="1">
-      <input v-else type="text" :value="btnValue2" data-ttt="2">
-    </div>
-  `
+  data: {
+    test: {
+      dataFoo: 'hi',
+      dataBar: 'bye'
+    }
+  }
 }).$mount('#app1')
+// 'foo bar'
+console.log(vm.$el.textContent)
+
 
 // const vm = new Vue({
 //   data: { ok: true },
