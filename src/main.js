@@ -47,7 +47,7 @@ Vue.config.errorHandler = () => {
 //   console.log(vm.$el.value);
 // }, 0)
 
-
+console.log(document.createElement('div'));
 const vm = new Vue({
   data: {
     message: 'Hello Vue.js!',
@@ -55,17 +55,23 @@ const vm = new Vue({
     btnValue1: 'button 1',
     btnValue2: 'button 2'
   },
+  methods: {
+    show1 () {
+      this.show=!this.show;
+      const children = this._vnode.children;
+      console.log(children[children.length-1].data);
+    }
+  },
   template: `
     <div>
       <p>{{ message }}</p>
-      <input type="button" @click="show=!show" value="Toggle">（Switch multiple times to see the results）
+      <input type="button" @click="show1" value="Toggle">（Switch multiple times to see the results）
       <p>===========scene one=============</p>
-      <input v-if="show" type="button" value="button 1">
-      <input v-else type="button" :value="btnValue2">
+      <input v-if="show" type="text" :value="btnValue1" data-ttt="1">
+      <input v-else type="text" :value="btnValue2" data-ttt="2">
     </div>
   `
 }).$mount('#app1')
-
 
 // const vm = new Vue({
 //   data: { ok: true },
@@ -122,7 +128,6 @@ const vm = new Vue({
 //     console.log(document.querySelector('#input').class);
 //   }
 // }).$mount('#app1')
-
 
 
 
