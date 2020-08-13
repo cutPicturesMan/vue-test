@@ -77,23 +77,23 @@ Vue.config.errorHandler = () => {
 // }).$mount('#app1')
 
 
-const vm = new Vue({
-  template: `<test v-bind="test" data-foo="foo" dataBar="bar"/>`,
-  components: {
-    test: {
-      template: '<div>{{ dataFoo }} {{ dataBar }}</div>',
-      props: ['dataFoo', 'dataBar']
-    }
-  },
-  data: {
-    test: {
-      dataFoo: 'hi',
-      dataBar: 'bye'
-    }
-  }
-}).$mount('#app1')
-// 'foo bar'
-console.log(vm.$el.textContent)
+// const vm = new Vue({
+//   template: `<test v-bind="test" data-foo="foo" dataBar="bar"/>`,
+//   components: {
+//     test: {
+//       template: '<div>{{ dataFoo }} {{ dataBar }}</div>',
+//       props: ['dataFoo', 'dataBar']
+//     }
+//   },
+//   data: {
+//     test: {
+//       dataFoo: 'hi',
+//       dataBar: 'bye'
+//     }
+//   }
+// }).$mount('#app1')
+// // 'foo bar'
+// console.log(vm.$el.textContent)
 
 
 // const vm = new Vue({
@@ -185,12 +185,34 @@ console.log(vm.$el.textContent)
 //     }
 //   }
 // }).$mount('#app1')
-//
+
+new Vue({
+  template: '<div><strong :key="bool">{{is}}</strong></div>',
+  // template: '<strong :is="is">{{is}}</strong>',
+  // template: '<strong>{{is}}</strong>',
+  data: {
+    is: 'ccc',
+    attr: {
+      is: 'ccc'
+    },
+    bool: true
+  },
+  mounted () {
+    setTimeout(() => {
+      this.is = 'aaa';
+    }, 1000)
+  }
+}).$mount('#app1')
+
 // new Vue({
 //   render(h){
 //     return h(
 //       'div', {
-//         is: 'abc'
+//         // is: 'abc',
+//         key: Symbol('key'),
+//         domProps: {
+//           innerHTML: 'baz'
+//         },
 //       })
 //   }
 // }).$mount('#app2')
