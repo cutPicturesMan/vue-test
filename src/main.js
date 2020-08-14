@@ -186,36 +186,95 @@ Vue.config.errorHandler = () => {
 //   }
 // }).$mount('#app1')
 
-new Vue({
-  template: '<div><strong :key="bool">{{is}}</strong></div>',
-  // template: '<strong :is="is">{{is}}</strong>',
-  // template: '<strong>{{is}}</strong>',
-  data: {
-    is: 'ccc',
-    attr: {
-      is: 'ccc'
-    },
-    bool: true
-  },
-  mounted () {
-    setTimeout(() => {
-      this.is = 'aaa';
-    }, 1000)
-  }
-}).$mount('#app1')
+// new Vue({
+//   template: '<div><strong :key="bool">{{is}}</strong></div>',
+//   // template: '<strong :is="is">{{is}}</strong>',
+//   // template: '<strong>{{is}}</strong>',
+//   data: {
+//     is: 'ccc',
+//     attr: {
+//       is: 'ccc'
+//     },
+//     bool: true
+//   },
+//   mounted () {
+//     setTimeout(() => {
+//       this.is = 'aaa';
+//     }, 1000)
+//   }
+// }).$mount('#app1')
 
 // new Vue({
-//   render(h){
-//     return h(
-//       'div', {
-//         // is: 'abc',
-//         key: Symbol('key'),
-//         domProps: {
-//           innerHTML: 'baz'
-//         },
-//       })
-//   }
-// }).$mount('#app2')
+//   template: `<div>
+//     <test>
+//       <template v-slot:header>
+//         <h1>Here might be a page title</h1>
+//       </template>
+//
+//       <p>A paragraph for the main content.</p>
+//       <p>And another one.</p>
+//
+//       <template v-slot:footer="{ cname }">
+//         <div>作用域插槽的值：{{cname}}</div>
+//         <p>Here's some contact info</p>
+//       </template>
+//     </test>
+//   </div>`,
+//   components: {
+//     test: {
+//       template: `<div>
+//         <div class="container">
+//           <header>
+//             <div>header----------</div>
+//             <slot name="header"></slot>
+//           </header>
+//           <main>
+//             <div>main----------</div>
+//             <slot></slot>
+//           </main>
+//           <footer>
+//             <div>footer----------{{cname}}</div>
+//             <slot name="footer" :cname="cname"></slot>
+//           </footer>
+//         </div>
+//       </div>`,
+//       data () {
+//         return {
+//           cname: 'inner'
+//         };
+//       }
+//     }
+//   },
+// }).$mount('#app1')
+
+const vm = new Vue({
+  template: `
+        <test ref="test">
+          <template slot-scope="props">
+            <span>{{ props.msg }}</span>
+          </template>
+        </test>
+      `,
+  components: {
+    test: {
+      data () {
+        return { msg: 'hello' }
+      },
+      template: `
+            <div>
+              <slot :msg="msg"></slot>
+            </div>
+          `
+    }
+  }
+}).$mount('#app1')
+// .toBe('<span>hello</span>')
+console.log(vm.$el.innerHTML)
+vm.$refs.test.msg = 'world'
+setTimeout(() => {
+  // .toBe('<span>world</span>')
+  console.log(vm.$el.innerHTML)
+})
 
 
 // const vm = new Vue({
