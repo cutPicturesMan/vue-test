@@ -247,33 +247,82 @@ Vue.config.errorHandler = () => {
 //   },
 // }).$mount('#app1')
 
+// const vm = new Vue({
+//   template: `
+//         <div>
+//           <div1>div1</div1>
+//           <test ref="test" data-aaa="123">
+//             <template slot-scope="props">
+//               <span>{{ props.msg }}</span>
+//             </template>
+//           </test>
+//         </div>
+//       `,
+//   components: {
+//     test: {
+//       data () {
+//         console.log(this);
+//         return { msg: 'hello' }
+//       },
+//       template: `
+//             <div>
+//               <slot :msg="msg"></slot>
+//             </div>
+//           `
+//     }
+//   }
+// }).$mount('#app1')
+// // .toBe('<span>hello</span>')
+// console.log(vm)
+// console.log(vm.$el.innerHTML)
+// vm.$refs.test.msg = 'world'
+// setTimeout(() => {
+//   // .toBe('<span>world</span>')
+//   console.log(vm.$el.innerHTML)
+// })
+
+
+// should handle slot nodes being reused across render
 const vm = new Vue({
   template: `
-        <test ref="test">
-          <template slot-scope="props">
-            <span>{{ props.msg }}</span>
-          </template>
-        </test>
+        <foo ref="foo">
+          <div>slot</div>
+        </foo>
       `,
   components: {
-    test: {
+    foo: {
       data () {
-        return { msg: 'hello' }
+        return { ok: true }
       },
-      template: `
-            <div>
-              <slot :msg="msg"></slot>
-            </div>
-          `
+      render (h) {
+        const children = [
+          this.ok ? h('div', 'toggler ') : null,
+          h('div', [this.$slots.default, h('span', ' 1')]),
+          h('div', [h('label', ' 2')])
+        ]
+        return h('div', children)
+      }
     }
   }
 }).$mount('#app1')
-// .toBe('<span>hello</span>')
-console.log(vm.$el.innerHTML)
-vm.$refs.test.msg = 'world'
+
+// 'toggler slot 1 2'
+console.log(vm.$el.textContent)
+vm.$refs.foo.ok = false
 setTimeout(() => {
-  // .toBe('<span>world</span>')
-  console.log(vm.$el.innerHTML)
+  // 'slot 1 2'
+  console.log(vm.$el.textContent)
+  vm.$refs.foo.ok = true
+  setTimeout(() => {
+    // 'toggler slot 1 2'
+    console.log(vm.$el.textContent)
+    vm.$refs.foo.ok = false
+    setTimeout(() => {
+      // 'slot 1 2'
+      console.log(vm.$el.textContent)
+      vm.$refs.foo.ok = true
+    })
+  })
 })
 
 
