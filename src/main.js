@@ -3,8 +3,8 @@
 import Vue from "vue";
 import { a } from './test.js';
 
-Vue.config.errorHandler = () => {
-  debugger
+Vue.config.errorHandler = (e) => {
+  console.warn(e);
 }
 // const vm = new Vue({
 //   data: {
@@ -282,48 +282,60 @@ Vue.config.errorHandler = () => {
 // })
 
 
-// should handle slot nodes being reused across render
-const vm = new Vue({
-  template: `
-        <foo ref="foo">
-          <div>slot</div>
-        </foo>
-      `,
-  components: {
-    foo: {
-      data () {
-        return { ok: true }
-      },
-      render (h) {
-        const children = [
-          this.ok ? h('div', 'toggler ') : null,
-          h('div', [this.$slots.default, h('span', ' 1')]),
-          h('div', [h('label', ' 2')])
-        ]
-        return h('div', children)
-      }
-    }
-  }
-}).$mount('#app1')
+// // should handle slot nodes being reused across render
+// const vm = new Vue({
+//   template: `
+//         <foo ref="foo">
+//           <div>slot</div>
+//         </foo>
+//       `,
+//   components: {
+//     foo: {
+//       data () {
+//         return { ok: true }
+//       },
+//       functional: true,
+//       render (h) {
+//         const children = [
+//           this.ok ? h('div', 'toggler ') : null,
+//           h('div', [this.$slots.default, h('span', ' 1')]),
+//           h('div', [h('label', ' 2')])
+//         ]
+//         return children
+//       }
+//     }
+//   }
+// }).$mount('#app1')
 
-// 'toggler slot 1 2'
-console.log(vm.$el.textContent)
-vm.$refs.foo.ok = false
-setTimeout(() => {
-  // 'slot 1 2'
-  console.log(vm.$el.textContent)
-  vm.$refs.foo.ok = true
-  setTimeout(() => {
-    // 'toggler slot 1 2'
-    console.log(vm.$el.textContent)
-    vm.$refs.foo.ok = false
-    setTimeout(() => {
-      // 'slot 1 2'
-      console.log(vm.$el.textContent)
-      vm.$refs.foo.ok = true
-    })
-  })
-})
+const Child = {
+  functional: true,
+  render: h => ([h('foo'), h('bar')])
+}
+const vm = new Vue({
+  template: `<svg><child/></svg>`,
+  components: { Child }
+}).$mount('#app1')
+  console.log(vm.$el.childNodes[0].namespaceURI)
+
+//
+// // 'toggler slot 1 2'
+// console.log(vm.$el.textContent)
+// vm.$refs.foo.ok = false
+// setTimeout(() => {
+//   // 'slot 1 2'
+//   console.log(vm.$el.textContent)
+//   vm.$refs.foo.ok = true
+//   setTimeout(() => {
+//     // 'toggler slot 1 2'
+//     console.log(vm.$el.textContent)
+//     vm.$refs.foo.ok = false
+//     setTimeout(() => {
+//       // 'slot 1 2'
+//       console.log(vm.$el.textContent)
+//       vm.$refs.foo.ok = true
+//     })
+//   })
+// })
 
 
 // const vm = new Vue({
