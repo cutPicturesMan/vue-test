@@ -307,15 +307,34 @@ Vue.config.errorHandler = (e) => {
 //   }
 // }).$mount('#app1')
 
-const Child = {
-  functional: true,
-  render: h => ([h('foo'), h('bar')])
-}
+// const Child = {
+//   functional: true,
+//   render: h => ([h('foo'), h('bar')])
+// }
+// const vm = new Vue({
+//   template: `<svg><child/></svg>`,
+//   components: { Child }
+// }).$mount('#app1')
+//   console.log(vm.$el.childNodes[0].namespaceURI)
+
 const vm = new Vue({
-  template: `<svg><child/></svg>`,
-  components: { Child }
+  template: `<test><p :style="style" :data-style="style" /></test>`,
+  data: {
+    style: { color: 'red' }
+  },
+  components: {
+    test: {
+      template: `<div><slot/></div>`
+    }
+  }
 }).$mount('#app1')
-  console.log(vm.$el.childNodes[0].namespaceURI)
+// red
+console.log(vm.$el.children[0].style.color)
+vm.style.color = 'green'
+setTimeout(() => {
+  // 'green'
+  console.log(vm.$el.children[0].style.color)
+})
 
 //
 // // 'toggler slot 1 2'
