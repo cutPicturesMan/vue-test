@@ -317,24 +317,40 @@ Vue.config.errorHandler = (e) => {
 // }).$mount('#app1')
 //   console.log(vm.$el.childNodes[0].namespaceURI)
 
+
+
+// const vm = new Vue({
+//   template: `<test><p :style="style" :data-style="style" /></test>`,
+//   data: {
+//     style: { color: 'red' }
+//   },
+//   components: {
+//     test: {
+//       template: `<div><slot/></div>`
+//     }
+//   }
+// }).$mount('#app1')
+// // red
+// console.log(vm.$el.children[0].style.color)
+// vm.style.color = 'green'
+// setTimeout(() => {
+//   // 'green'
+//   console.log(vm.$el.children[0].style.color)
+// })
+
 const vm = new Vue({
-  template: `<test><p :style="style" :data-style="style" /></test>`,
   data: {
     style: { color: 'red' }
   },
-  components: {
-    test: {
-      template: `<div><slot/></div>`
-    }
+  render (h) {
+    return h('div', {
+      ref: 'main',
+      domProps: {
+        innerHTML: 'baz'
+      },
+    });
   }
 }).$mount('#app1')
-// red
-console.log(vm.$el.children[0].style.color)
-vm.style.color = 'green'
-setTimeout(() => {
-  // 'green'
-  console.log(vm.$el.children[0].style.color)
-})
 
 //
 // // 'toggler slot 1 2'
