@@ -340,15 +340,13 @@ Vue.config.errorHandler = (e) => {
 
 const vm = new Vue({
   data: {
-    style: { color: 'red' }
+    a: 1
   },
-  render (h) {
-    return h('div', {
-      ref: 'main',
-      domProps: {
-        innerHTML: 'baz'
-      },
-    });
+  template: `<div>{{a}}</div>`,
+  mounted () {
+    setTimeout(() => {
+      this.a = 2;
+    }, 1000)
   }
 }).$mount('#app1')
 
