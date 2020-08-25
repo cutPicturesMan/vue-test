@@ -337,16 +337,43 @@ Vue.config.errorHandler = (e) => {
 //   // 'green'
 //   console.log(vm.$el.children[0].style.color)
 // })
-
+let idx = 1;
 const vm = new Vue({
   data: {
-    a: 1
+    obj: {
+      name: {
+        age: 1
+      }
+    },
+    arr: []
   },
-  template: `<div>{{a}}</div>`,
+  template: `<div>{{arr.length}}</div>`,
+  methods: {
+    fn () {
+      setTimeout(() => {
+        // this.a = 2;
+        // this.obj.name = 2;
+
+        // TODO 将对象整个替换掉，其各个属性的dep还会存在内存中么？会有内存泄漏的风险么？
+        // this.$set(this.obj, `name${idx}`, idx++)
+        this.arr.push(idx++);
+        if (idx > 10000) {
+          debugger
+          console.log(123);
+        } else {
+          this.fn()
+        }
+        // console.log(vm.$data.obj.name);
+        // setTimeout(() => {
+        //   this.obj = {
+        //     name: 'zz'
+        //   }
+        // }, 50)
+      }, 0)
+    }
+  },
   mounted () {
-    setTimeout(() => {
-      this.a = 2;
-    }, 1000)
+    this.fn();
   }
 }).$mount('#app1')
 
