@@ -337,39 +337,81 @@ Vue.config.errorHandler = (e) => {
 //   // 'green'
 //   console.log(vm.$el.children[0].style.color)
 // })
+
+
+// let idx = 1;
+// let obj = {}
+// for (; idx < 3000; idx++) {
+//   // TODO 将对象整个替换掉，其各个属性的dep还会存在内存中么？会有内存泄漏的风险么？
+//   obj[`name${idx}`] = idx
+// }
+// const vm = new Vue({
+//   data: obj,
+//   template: `
+//     <div>
+//         <span v-for="(item, index) in 3000" v-text="'name'+index"></span><button @click="clear">clear</button>
+//     </div>
+//   `,
+//   computed: {
+//     length () {
+//       return Object.keys(this._data).length
+//     }
+//   },
+//   methods: {
+//     clear () {
+//       this.obj = {};
+//     },
+//     fn () {
+//       setTimeout(() => {
+//         // this.a = 2;
+//         // this.obj.name = 2;
+//
+//         for (; idx < 3000; idx++) {
+//           // TODO 将对象整个替换掉，其各个属性的dep还会存在内存中么？会有内存泄漏的风险么？
+//           this.$set(this.obj, `name${idx}`, idx++)
+//         }
+//        }, 0)
+//     }
+//   },
+//   mounted () {
+//     console.log(Object.keys(this._data).length);
+//     // this.fn();
+//   }
+// }).$mount('#app1')
+
+
+
 let idx = 1;
 const vm = new Vue({
   data: {
     obj: {
       name: {
         age: 1
-      }
+      },
+      test: 111
     },
     arr: []
   },
-  template: `<div>{{arr.length}}</div>`,
+  template: `
+    <div>
+        <div>{{length}}, {{obj.name100}}</div><button @click="clear">clear</button>
+    </div>
+  `,
+  computed: {
+    length () {
+      return Object.keys(this.obj).length
+    }
+  },
   methods: {
+    clear () {
+      this.obj = {};
+    },
     fn () {
-      setTimeout(() => {
-        // this.a = 2;
-        // this.obj.name = 2;
-
+      for (; idx < 3000; idx++) {
         // TODO 将对象整个替换掉，其各个属性的dep还会存在内存中么？会有内存泄漏的风险么？
-        // this.$set(this.obj, `name${idx}`, idx++)
-        this.arr.push(idx++);
-        if (idx > 10000) {
-          debugger
-          console.log(123);
-        } else {
-          this.fn()
-        }
-        // console.log(vm.$data.obj.name);
-        // setTimeout(() => {
-        //   this.obj = {
-        //     name: 'zz'
-        //   }
-        // }, 50)
-      }, 0)
+        let key = `name${idx}`;
+        this.$set(this.obj, key, idx)
+      }
     }
   },
   mounted () {
