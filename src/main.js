@@ -390,7 +390,7 @@ const vm = new Vue({
       },
       test: 111
     },
-    arr: []
+    arr: [{a: 1}, {b: 2}]
   },
   template: `
     <div>
@@ -415,7 +415,7 @@ const vm = new Vue({
     }
   },
   mounted () {
-    this.fn();
+    // this.fn();
   }
 }).$mount('#app1')
 
