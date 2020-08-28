@@ -319,17 +319,24 @@ Vue.config.errorHandler = (e) => {
 
 
 
-// const vm = new Vue({
-//   template: `<test><p :style="style" :data-style="style" /></test>`,
-//   data: {
-//     style: { color: 'red' }
-//   },
-//   components: {
-//     test: {
-//       template: `<div><slot/></div>`
-//     }
-//   }
-// }).$mount('#app1')
+const vm = new Vue({
+  template: `<test>
+    <!--<p :style="style" :data-style="style" />-->
+  </test>`,
+  // data: {
+  //   style: { color: 'red' }
+  // },
+  components: {
+    test: {
+      data () {
+        return {
+          name: 1
+        }
+      },
+      template: `<div><slot/></div>`
+    }
+  }
+}).$mount('#app1')
 // // red
 // console.log(vm.$el.children[0].style.color)
 // vm.style.color = 'green'
@@ -381,43 +388,45 @@ Vue.config.errorHandler = (e) => {
 
 
 
-let idx = 1;
-const vm = new Vue({
-  data: {
-    obj: {
-      name: {
-        age: 1
-      },
-      test: 111
-    },
-    arr: [{a: 1}, {b: 2}]
-  },
-  template: `
-    <div>
-        <div>{{length}}, {{obj.name100}}</div><button @click="clear">clear</button>
-    </div>
-  `,
-  computed: {
-    length () {
-      return Object.keys(this.obj).length
-    }
-  },
-  methods: {
-    clear () {
-      this.obj = {};
-    },
-    fn () {
-      for (; idx < 3000; idx++) {
-        // TODO 将对象整个替换掉，其各个属性的dep还会存在内存中么？会有内存泄漏的风险么？
-        let key = `name${idx}`;
-        this.$set(this.obj, key, idx)
-      }
-    }
-  },
-  mounted () {
-    // this.fn();
-  }
-}).$mount('#app1')
+// let idx = 1;
+// const vm = new Vue({
+//   data: {
+//     obj: {
+//       name: {
+//         age: 1
+//       },
+//       test: 111
+//     },
+//     arr: [{a: 1}, {b: 2}]
+//   },
+//   template: `
+//     <div>
+//         <div>{{length}}, {{obj.name100}}</div><button @click="clear">clear</button>
+//     </div>
+//   `,
+//   computed: {
+//     length () {
+//       return Object.keys(this.obj).length
+//     }
+//   },
+//   methods: {
+//     clear () {
+//       this.obj = {};
+//     },
+//     fn () {
+//       for (; idx < 3000; idx++) {
+//         // TODO 将对象整个替换掉，其各个属性的dep还会存在内存中么？会有内存泄漏的风险么？
+//         let key = `name${idx}`;
+//         this.$set(this.obj, key, idx)
+//       }
+//     }
+//   },
+//   mounted () {
+//     // this.fn();
+//   }
+// }).$mount('#app1')
+
+
 
 //
 // // 'toggler slot 1 2'
