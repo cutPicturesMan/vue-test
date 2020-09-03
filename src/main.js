@@ -6,18 +6,41 @@ import { a } from './test.js';
 Vue.config.errorHandler = (e) => {
   console.warn(e);
 }
-// const vm = new Vue({
-//   data: {
-//     a: {
-//       b: 123
-//     }
-//   },
-//   render (h) {
-//     return h('div', [this.a.b])
-//   }
-// }).$mount('')
-// // }).$mount('#app1')// TODO el为空，到底有没有挂载到页面？？？
-// console.log(vm.$el.textContent, '123');
+
+class Model {
+  constructor() {
+    this.foo = '123'
+    this._bar = 1
+  }
+  get bar() {
+    return this._bar;
+  }
+  set bar(newvalue) {
+    this._bar = newvalue;
+  }
+}
+
+let vm = new Vue({
+  data: {
+    a: {
+      b: 123
+    },
+    arr: [],
+    test: new Model()
+  },
+  render (h) {
+    return h('div', [this.a.b])
+  }
+}).$mount('')
+console.log(vm.test.hasOwnProperty('bar'));
+delete vm.test.bar;
+console.log(vm.test.bar);
+// let symbol = Symbol('2');
+// console.log(vm.a);
+//
+// vm.$set(vm.arr, symbol, 23)
+// console.log(vm.arr);
+// console.log(vm.arr[symbol]);
 
 // const vm = new Vue({
 //   template: '<input v-bind="test" id="foo" :class="test.value" class="z">',
@@ -319,24 +342,24 @@ Vue.config.errorHandler = (e) => {
 
 
 
-const vm = new Vue({
-  template: `<test>
-    <!--<p :style="style" :data-style="style" />-->
-  </test>`,
-  // data: {
-  //   style: { color: 'red' }
-  // },
-  components: {
-    test: {
-      data () {
-        return {
-          name: 1
-        }
-      },
-      template: `<div><slot/></div>`
-    }
-  }
-}).$mount('#app1')
+// const vm = new Vue({
+//   template: `<test>
+//     <!--<p :style="style" :data-style="style" />-->
+//   </test>`,
+//   // data: {
+//   //   style: { color: 'red' }
+//   // },
+//   components: {
+//     test: {
+//       data () {
+//         return {
+//           name: 1
+//         }
+//       },
+//       template: `<div><slot/></div>`
+//     }
+//   }
+// }).$mount('#app1')
 // // red
 // console.log(vm.$el.children[0].style.color)
 // vm.style.color = 'green'
