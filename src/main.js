@@ -2,7 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue";
 import { a } from './test.js';
-
 Vue.config.errorHandler = (e) => {
   console.warn(e);
 }
@@ -20,21 +19,24 @@ class Model {
   }
 }
 
-let vm = new Vue({
+new Vue({
+  template: '<div><strong>1、{{a.b}}</strong><strong>2、${abc}</strong>123</div>',
+  delimiters: ['${', '}'],
   data: {
+    abc: 1222,
     a: {
       b: 123
     },
     arr: [],
     test: new Model()
   },
-  render (h) {
-    return h('div', [this.a.b])
-  }
-}).$mount('')
-console.log(vm.test.hasOwnProperty('bar'));
-delete vm.test.bar;
-console.log(vm.test.bar);
+  // render (h) {
+  //   return h('div', [this.a.b])
+  // }
+}).$mount('#app1')
+// console.log(vm.test.hasOwnProperty('bar'));
+// delete vm.test.bar;
+// console.log(vm.test.bar);
 // let symbol = Symbol('2');
 // console.log(vm.a);
 //
