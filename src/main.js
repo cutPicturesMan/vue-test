@@ -19,20 +19,48 @@ class Model {
   }
 }
 
+
 new Vue({
-  template: '<div><strong>1、{{a.b}}</strong><strong>2、${abc}</strong>123</div>',
-  delimiters: ['${', '}'],
+  template: `
+    <div>
+      <strong @click="delete(abc)">
+        1、{{a.b}}
+      </strong>
+      <strong>
+    </div>
+  `,
+  // delimiters: ['${', '}'],
   data: {
     abc: 1222,
     a: {
       b: 123
     },
     arr: [],
+    list: [],
     test: new Model()
+  },
+  methods: {
+    delete (param) {
+      console.log(param);
+    }
   },
   // render (h) {
   //   return h('div', [this.a.b])
   // }
+  mounted () {
+    let datas = [{id: 1}, {id: 2}];
+    datas.forEach(item => {
+      item.isLoading = true;
+    })
+    this.arr = this.arr.concat(datas);
+    this.arr = [];
+    this.list = [...datas];
+    // this.list.push(...datas);
+
+    setTimeout(()=>{
+      datas[0].isLoading = false;
+    }, 1000)
+  }
 }).$mount('#app1')
 // console.log(vm.test.hasOwnProperty('bar'));
 // delete vm.test.bar;
