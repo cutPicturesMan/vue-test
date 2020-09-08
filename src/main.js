@@ -23,10 +23,11 @@ class Model {
 new Vue({
   template: `
     <div>
-      <strong @click="delete(abc)">
+      <!--<strong @click="delete(abc)">-->
+      <strong>
         1、{{a.b}}
       </strong>
-      <strong>
+      <!--<strong>-->
     </div>
   `,
   // delimiters: ['${', '}'],
