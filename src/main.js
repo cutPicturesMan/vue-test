@@ -6,16 +6,29 @@ Vue.config.errorHandler = (e) => {
   console.warn(e);
 }
 
+// a1 = 'test'
+// console.log(window.a1);
+// new Function(`with(window){console.log(a1)}`)()
+
 class Model {
   constructor() {
     this.foo = '123'
     this._bar = 1
+
+    this.fn = new Function(`with(this){_c(foo)}`)
+    // new Function(`_c(foo)`)()
+    this.fn();
   }
+
   get bar() {
     return this._bar;
   }
   set bar(newvalue) {
     this._bar = newvalue;
+  }
+
+  _c (value) {
+    console.log(`【value】${value}`);
   }
 }
 
@@ -24,7 +37,7 @@ new Vue({
   template: `
     <div>
       <!--<strong @click="delete(abc)">-->
-      <strong>
+      <strong @click="this.a1(a.b + 1)">
         1、{{a.b}}
       </strong>
       <!--<strong>-->
@@ -43,6 +56,9 @@ new Vue({
   methods: {
     delete (param) {
       console.log(param);
+    },
+    a1 (param) {
+      console.log(isNaN(param));
     }
   },
   // render (h) {
