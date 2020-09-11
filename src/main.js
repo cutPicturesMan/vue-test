@@ -33,52 +33,52 @@ class Model {
 }
 
 
-new Vue({
-  template: `
-    <div>
-      <!--<strong @click="delete(abc)">-->
-      <strong @click="this.a1(a.b + 1)">
-        1、{{a.b}}
-      </strong>
-      <!--<strong>-->
-    </div>
-  `,
-  // delimiters: ['${', '}'],
-  data: {
-    abc: 1222,
-    a: {
-      b: 123
-    },
-    arr: [],
-    list: [],
-    test: new Model()
-  },
-  methods: {
-    delete (param) {
-      console.log(param);
-    },
-    a1 (param) {
-      console.log(isNaN(param));
-    }
-  },
-  // render (h) {
-  //   return h('div', [this.a.b])
-  // }
-  mounted () {
-    let datas = [{id: 1}, {id: 2}];
-    datas.forEach(item => {
-      item.isLoading = true;
-    })
-    this.arr = this.arr.concat(datas);
-    this.arr = [];
-    this.list = [...datas];
-    // this.list.push(...datas);
-
-    setTimeout(()=>{
-      datas[0].isLoading = false;
-    }, 1000)
-  }
-}).$mount('#app1')
+// new Vue({
+//   template: `
+//     <div>
+//       <!--<strong @click="delete(abc)">-->
+//       <strong @click="this.a1(a.b + 1)">
+//         1、{{a.b}}
+//       </strong>
+//       <!--<strong>-->
+//     </div>
+//   `,
+//   // delimiters: ['${', '}'],
+//   data: {
+//     abc: 1222,
+//     a: {
+//       b: 123
+//     },
+//     arr: [],
+//     list: [],
+//     test: new Model()
+//   },
+//   methods: {
+//     delete (param) {
+//       console.log(param);
+//     },
+//     a1 (param) {
+//       console.log(isNaN(param));
+//     }
+//   },
+//   // render (h) {
+//   //   return h('div', [this.a.b])
+//   // }
+//   mounted () {
+//     let datas = [{id: 1}, {id: 2}];
+//     datas.forEach(item => {
+//       item.isLoading = true;
+//     })
+//     this.arr = this.arr.concat(datas);
+//     this.arr = [];
+//     this.list = [...datas];
+//     // this.list.push(...datas);
+//
+//     setTimeout(()=>{
+//       datas[0].isLoading = false;
+//     }, 1000)
+//   }
+// }).$mount('#app1')
 // console.log(vm.test.hasOwnProperty('bar'));
 // delete vm.test.bar;
 // console.log(vm.test.bar);
@@ -147,23 +147,23 @@ new Vue({
 // }).$mount('#app1')
 
 
-// const vm = new Vue({
-//   template: `<test v-bind="test" data-foo="foo" dataBar="bar"/>`,
-//   components: {
-//     test: {
-//       template: '<div>{{ dataFoo }} {{ dataBar }}</div>',
-//       props: ['dataFoo', 'dataBar']
-//     }
-//   },
-//   data: {
-//     test: {
-//       dataFoo: 'hi',
-//       dataBar: 'bye'
-//     }
-//   }
-// }).$mount('#app1')
-// // 'foo bar'
-// console.log(vm.$el.textContent)
+const vm = new Vue({
+  template: `<test v-bind="test" data-foo="foo" dataBar="bar"/>`,
+  components: {
+    'test': {
+      template: '<div>{{ dataFoo }} {{ dataBar }}</div>',
+      props: ['dataFoo', 'dataBar']
+    }
+  },
+  data: {
+    test: {
+      dataFoo: 'hi',
+      dataBar: 'bye'
+    }
+  }
+}).$mount('#app1')
+// 'foo bar'
+console.log(vm.$el.textContent)
 
 
 // const vm = new Vue({
