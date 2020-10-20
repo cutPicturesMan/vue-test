@@ -151,7 +151,9 @@ const vm = new Vue({
   template: `<test v-bind="test" data-foo="foo" dataBar="bar"/>`,
   components: {
     'test': {
-      template: '<div>{{ dataFoo }} {{ dataBar }}</div>',
+      template: `<textarea1>{{ dataFoo }}        <!--[if lte IE 8]>
+          <p>Test 1</p>
+        <![endif]--> {{ dataBar }}</textarea1>`,
       props: ['dataFoo', 'dataBar']
     }
   },
