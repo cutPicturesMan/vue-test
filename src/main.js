@@ -148,24 +148,45 @@ class Model {
 
 
 const vm = new Vue({
-  template: `<test v-bind="test" data-foo="foo" dataBar="bar"/>`,
-  components: {
-    'test': {
-      template: `<textarea1>{{ dataFoo }}        <!--[if lte IE 8]>
-          <p>Test 1</p>
-        <![endif]--> {{ dataBar }}</textarea1>`,
-      props: ['dataFoo', 'dataBar']
-    }
-  },
   data: {
-    test: {
-      dataFoo: 'hi',
-      dataBar: 'bye'
-    }
-  }
+    num: 2,
+    data: {
+      text: 'foo',
+      checkbox: true
+    },
+    types: ['checkbox', 'text', 'password',]
+  },
+  // template: '<input type="checkbox" v-model="test" v-bind="$attrs">'
+  template: `<div>
+    <div v-if="num == 1">1</div>
+    <div v-else-if="num == 2" v-else>2</div>
+  </div>`
 }).$mount('#app1')
-// 'foo bar'
-console.log(vm.$el.textContent)
+
+// setTimeout(() => {
+//   vm.t = 'radio';
+// }, 1000)
+// const vm = new Vue({
+//   template: `<input v-model="a" :type/>`,
+//   components: {
+//     'test': {
+//       template: `<textarea1>{{ dataFoo }}        <!--[if lte IE 8]>
+//           <p>Test 1</p>
+//         <![endif]--> {{ dataBar }}</textarea1>`,
+//       props: ['dataFoo', 'dataBar']
+//     }
+//   },
+//   data: {
+//     a: '',
+//     type: null,
+//     test: {
+//       dataFoo: 'hi',
+//       dataBar: 'bye'
+//     }
+//   }
+// }).$mount('#app1')
+// // 'foo bar'
+// console.log(vm.$el.textContent)
 
 
 // const vm = new Vue({
