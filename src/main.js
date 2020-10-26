@@ -158,8 +158,11 @@ const vm = new Vue({
   },
   // template: '<input type="checkbox" v-model="test" v-bind="$attrs">'
   template: `<div>
-    <div v-if="num == 1">1</div>
-    <div v-else-if="num == 2" v-else>2</div>
+   <div v-if="a">1</div>
+   aaaaa
+   <p v-else-if="b">2</p>
+   bbbbb
+   <span v-else="c">3</span>
   </div>`
 }).$mount('#app1')
 
