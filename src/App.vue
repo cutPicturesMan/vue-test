@@ -1,8 +1,7 @@
 <template>
-	<div>
-		<div id="app">
+	<!--注释-->
+	<div>123
 
-		</div>
 	</div>
 </template>
 

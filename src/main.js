@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue";
+import test from './App.vue';
 import { a } from './test.js';
 Vue.config.errorHandler = (e) => {
   console.warn(e);
@@ -150,20 +151,34 @@ class Model {
 const vm = new Vue({
   data: {
     num: 2,
+    list: [{name: 'a', id: 1},{name: 'b', id: 2}],
     data: {
       text: 'foo',
       checkbox: true
     },
     types: ['checkbox', 'text', 'password',]
   },
-  // template: '<input type="checkbox" v-model="test" v-bind="$attrs">'
   template: `<div>
-   <div v-if="a">1</div>
-   aaaaa
-   <p v-else-if="b">2</p>
-   bbbbb
-   <span v-else="c">3</span>
-  </div>`
+    <template v-for="toy in list">
+        <template v-if="toy.name == 'a'"> 
+          <p>toy a</p>
+        </template>
+        <template v-if="toy.name != 'a'"> 
+          <p>toy b</p>
+        </template>
+    </template>
+  </div>`,
+  components: {
+    test
+  }
+  // template: '<pre><code>  \n<span>hi</span>\n  </code><span> </span></pre>'
+  // template: `<div>
+  //  <div v-if="a">1</div>
+  //  aaaaa
+  //  <p v-else-if="b">2</p>
+  //  bbbbb
+  //  <span v-else="c">3</span>
+  // </div>`
 }).$mount('#app1')
 
 // setTimeout(() => {
