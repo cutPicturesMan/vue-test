@@ -149,27 +149,42 @@ class Model {
 
 
 const vm = new Vue({
+  // data: {
+  //   show: true,
+  //   num: 2,
+  //   list: [{name: 'a', id: 1},{name: 'b', id: 2}],
+  //   data: {
+  //     text: 'foo',
+  //     checkbox: true
+  //   },
+  //   types: ['checkbox', 'text', 'password',]
+  // },
+  // template: `
+  //   <div><p v-if="show">hello world</p><div v-else><p><span v-text="num"></span></p></div></div>
+  // `,
   data: {
-    num: 2,
-    list: [{name: 'a', id: 1},{name: 'b', id: 2}],
-    data: {
-      text: 'foo',
-      checkbox: true
-    },
-    types: ['checkbox', 'text', 'password',]
+    list: [
+      { id: 0, text: 'a' },
+      { id: 1, text: 'b' },
+      { id: 2, text: 'c' }
+    ]
   },
-  template: `<div>
-    <template v-for="toy in list">
-        <template v-if="toy.name == 'a'"> 
-          <p>toy a</p>
-        </template>
-        <template v-if="toy.name != 'a'"> 
-          <p>toy b</p>
-        </template>
-    </template>
-  </div>`,
+  template: `
+    <div>
+      <div><span>1</span></div> 
+      <div v-for="i in list" :key="i.id">
+        <div><span>2</span></div>
+        <span v-once>{{ i.text }}</span><span>{{ i.text }}</span>
+      </div>
+    </div>
+  `,
   components: {
     test
+  },
+  mounted () {
+    setTimeout(()=>{
+      this.list[0].id=3;
+    }, 1000)
   }
   // template: '<pre><code>  \n<span>hi</span>\n  </code><span> </span></pre>'
   // template: `<div>
