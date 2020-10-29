@@ -172,7 +172,12 @@ const vm = new Vue({
   template: `
     <div>
       <div><span>1</span></div> 
-      <div v-for="i in list" :key="i.id">
+      <div v-for="(i, index) in [
+      { id: 0, text: 'a' },
+      { id: 1, text: 'b' },
+      { id: 2, text: 'c' }
+    ]" :key="i.id">
+    {{index}}
         <div><span>2</span></div>
         <span v-once>{{ i.text }}</span><span>{{ i.text }}</span>
       </div>
