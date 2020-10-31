@@ -163,6 +163,7 @@ const vm = new Vue({
   //   <div><p v-if="show">hello world</p><div v-else><p><span v-text="num"></span></p></div></div>
   // `,
   data: {
+    ok: true,
     list: [
       { id: 0, text: 'a' },
       { id: 1, text: 'b' },
@@ -170,13 +171,18 @@ const vm = new Vue({
     ]
   },
   template: `
-    <div>
-      <div><span>1</span></div> 
-      <div v-for="i in list" :key="i.id">
-        <div><span>2</span></div>
-        <span v-once>{{ i.text }}</span><span>{{ i.text }}</span>
-      </div>
-    </div>
+    <!--<div>-->
+      <!--<div><span>1</span></div> -->
+      <!--<div v-for="i in list" :key="i.id">-->
+        <!--<div><span>2</span></div>-->
+        <!--<span v-once>{{ i.text }}</span><span>{{ i.text }}</span>-->
+      <!--</div>-->
+    <!--</div>-->
+        <div>
+          <div v-for="i in 2">
+            <div v-if="ok">a</div><div>b</div><div v-if="!ok">c</div><div>d</div>
+          </div>
+        </div>
   `,
   components: {
     test
@@ -195,6 +201,10 @@ const vm = new Vue({
   //  <span v-else="c">3</span>
   // </div>`
 }).$mount('#app1')
+
+setTimeout(() => {
+  vm.ok = false;
+}, 1000)
 
 // setTimeout(() => {
 //   vm.t = 'radio';
