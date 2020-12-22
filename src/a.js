@@ -1,6 +1,6 @@
-/**
- * Created by zhangzhen11 on 2018/11/6.
- */
-import Dep from './test'
-
-(new Dep()).log()
+console.log('a starting');
+exports.done = false;
+const b = require('./b.js');
+console.log('in a, b.done = %j', b.done);
+exports.done = true;
+console.log('a done');
